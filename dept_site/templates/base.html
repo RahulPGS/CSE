@@ -1,0 +1,311 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+    <title>{% block title %}|RGUKT CSE|{% endblock title %}</title>
+    <meta content="" name="description" />
+    <meta content="" name="keywords" />
+
+    <!-- Favicons -->
+    <link href="{% static 'img/logo.png' %}" rel="icon" />
+    <link href="{% static 'img/logo.jpg' %}" rel="apple-touch-icon" />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!---Fa fa Link -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Patua+One&display=swap" rel="stylesheet">
+    <!-- Vendor CSS Files -->
+    <link
+      href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}"
+      rel="stylesheet"
+    />
+    <link
+      href="{% static 'vendor/icofont/icofont.min.css' %}"
+      rel="stylesheet"
+    />
+    <link
+      href="{% static 'vendor/boxicons/css/boxicons.min.css' %}"
+      rel="stylesheet"
+    />
+    <link
+      href="{% static 'vendor/owl.carousel/assets/owl.carousel.min.css' %}"
+      rel="stylesheet"
+    />
+    <link href="{% static 'vendor/venobox/venobox.css' %}" rel="stylesheet" />
+    <link href="{% static 'vendor/aos/aos.css' %}" rel="stylesheet" />
+
+    <!-- Template Main CSS File -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+
+    {% comment %}
+    <script type="text/javascript">
+      $("#myCarousel").carousel({
+        interval: 3000,
+      });
+    </script>
+    {% endcomment %}
+  </head>
+
+  <body>
+    <!-- ======= Header ======= -->
+    <header id="header" class="fixed-top">
+      <div class="container-fluid">
+        <div class="row justify-content-center">
+          <div class="col-xl-9 d-flex align-items-center">
+            <h1 class="logo mr-auto"><a href="/">CSE</a></h1>
+            <!-- <a href="index.html" class="logo mr-auto"><img src="{% static 'img/logo.jpg" alt="" class="img-fluid"></a> -->
+
+            <nav class="nav-menu d-none d-lg-block">
+              <ul>
+                <li class="{% block home_class %}{% endblock home_class %}">
+                  <a href="/">Home</a>
+                </li>
+                <!--  <li class="drop-down"><a href="">About</a>
+                <ul>
+                  <li><a href="#">Campus Life</a></li>
+                  <li><a href="#">Education System</a></li>
+                  <li><a href="#">Acheivements & Awards</a></li>
+                  <li><a href="#">Governing Council</a></li>
+                  <li><a href="#">Right to Info Act</a></li>
+                  <li><a href="#">Galary</a></li>
+                </ul>
+              </li> -->
+                <li class="drop-down {% block academics_class %}{% endblock%}">
+                  <a href="">Academics</a>
+                  <ul>
+                    <li>
+                      <a
+                        href="https://drive.google.com/file/d/1gTDMrzC9wyr-yAIOmFTGLbRCgsJM-hgt/view?usp=sharing"
+                        target="blank"
+                        >Time Table</a
+                      >
+                    </li>
+                    <li><a href="courses">Courses</a></li>
+                    <li><a href="curriculam">Curriculam</a></li>
+
+                    <li>
+                      <a
+                        href="https://drive.google.com/file/d/1ZeYLLD6FgqkXfCeEZbOHt503M-JFhpzw/view?usp=sharing"
+                        target="blank"
+                        >Academic Calender</a
+                      >
+                    </li>
+                  </ul>
+                </li>
+
+                <li class="drop-down {% block people_class %}{% endblock%}" id='people'>
+                  <a href="">People</a>
+                  <ul>
+                    <li><a href="faculty">Faculty</a></li>
+                    <li><a href="staff">Staff</a></li>
+                    <li><a href="students">Students</a></li>
+                  </ul>
+                </li>
+
+                <li class="drop-down {% block research_class %}{% endblock%}">
+                  <a href="">Research</a>
+                  <ul>
+                    <li><a href="labs">Labs</a></li>
+                    <li><a href="publications">Publications</a></li>
+                    <li><a href="research_areas">Research Areas</a></li>
+                  </ul>
+                </li>
+
+                <li class="drop-down {% block highlights_class %}{% endblock%}">
+                  <a href="">Highlights</a>
+                  <ul>
+                    <li><a href="awards_honours">Awards & Honours</a></li>
+                    <li><a href="events_talks">Events and Talks</a></li>
+                    <li><a href="events_talks">Gallery</a></li>
+                  </ul>
+                </li>
+                <li class=" {% block news_class %}{% endblock%}">
+                  <a href="news_events"
+                    >News and Events</a
+                  >
+                </li>
+                <li class="drop-down {% block about_class %}{% endblock%}">
+                  <a href="">About Us</a>
+                  <ul>
+                    <li>
+                      <a href="https://rguktsklm.ac.in/address.php" target="_blank"
+                        >Address & Directions</a
+                      >
+                    </li>
+                    <li><a href="web_team">WebTeam</a></li>
+                  </ul>
+                </li>
+                <li style="color:white; font-family:'Patua One', cursive"><a href='/admin'>Admin</a></li>
+              </ul>
+            </nav>
+            <!-- .nav-menu -->
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- End Header -->
+
+    {% block content %}{% endblock content %}
+
+    <footer id="footer">
+      <div class="footer-top">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-3 col-md-6 footer-contact">
+              <h3>CSE</h3>
+              <p>
+                RGUKT - Srikakulam Campus <br />
+                Nuzvid, Krishna, Andhra Pradesh<br />
+                India, Pin:521202<br /><br />
+                <strong>Phone: 9030224486</strong><br />
+                <strong>Email: hodcse@rguktsklm.ac.in</strong>
+              </p>
+            </div>
+
+            <div class="col-lg-2 col-md-6 footer-links">
+              <h4>Useful Links</h4>
+              <ul>
+                <li>
+                  <i class="bx bx-chevron-right"></i>
+                  <a href="index.html">Home</a>
+                </li>
+                <li>
+                  <i class="bx bx-chevron-right"></i>
+                  <a
+                    href="https://rguktsklm.ac.in/universitydata.php?data=overview"
+                    >About</a
+                  >
+                </li>
+                <li>
+                  <i class="bx bx-chevron-right"></i>
+                  <a href="https://rguktn.ac.in/about/aboutrgukt/"
+                    >Infrastructure</a
+                  >
+                </li>
+                <li>
+                  <i class="bx bx-chevron-right"></i>
+                  <a href="https://rguktn.ac.in/academics/programmes/"
+                    >Academic</a
+                  >
+                </li>
+                <li>
+                  <i class="bx bx-chevron-right"></i>
+                  <a href="#contact">Contact</a>
+                </li>
+              </ul>
+            </div>
+
+            <div class="col-lg-3 col-md-6 footer-links">
+              <h4>Webisites</h4>
+              <ul>
+                <li><i class="bx bx-chevron-right"></i> <a href="#">CMS</a></li>
+                <li><i class="bx bx-chevron-right"></i> <a href="#">HMS</a></li>
+                <li>
+                  <i class="bx bx-chevron-right"></i> <a href="#">OLMS</a>
+                </li>
+                <li>
+                  <i class="bx bx-chevron-right"></i>
+                  <a href="#">Helping Handins</a>
+                </li>
+              </ul>
+            </div>
+
+            <div class="col-lg-3 col-md-6 footer-links">
+              <h4>Our Universities</h4>
+              <ul>
+                <li>
+                  <i class="bx bx-chevron-right"></i>
+                  <a href="https://rguktn.ac.in/">RGUKT Nuzvid</a>
+                </li>
+                <li>
+                  <i class="bx bx-chevron-right"></i>
+                  <a href="https://www.rguktong.ac.in/index.php"
+                    >RGUKT Ongole</a
+                  >
+                </li>
+                <li>
+                  <i class="bx bx-chevron-right"></i>
+                  <a href="https://rguktrkv.ac.in/">RGUKT RK Vally</a>
+                </li>
+                <li>
+                  <i class="bx bx-chevron-right"></i>
+                  <a href="https://www.rgukt.ac.in/">RGUKT Basar</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="copyright-wrap d-md-flex py-4">
+          <div class="mr-md-auto text-center text-md-left">
+            <div class="copyright">
+              &copy; Copyright
+              <strong><span>| RGUKT-CSE | 2021 </span></strong>. All Rights
+              Reserved
+            </div>
+            <div class="credits">
+              Designed & Developed by <a href="web_team.html">Team - ARM</a>
+            </div>
+          </div>
+          <div class="social-links text-center text-md-right pt-3 pt-md-0">
+            <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+            <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+            <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+            <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+            <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+    <div id="preloader"></div>
+
+    <!-- Vendor JS Files -->
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'vendor/jquery.easing/jquery.easing.min.js' %}"></script>
+    <!--<script src="{% static 'vendor/php-email-form/validate.js' %}"></script>-->
+    <script src="{% static 'vendor/waypoints/jquery.waypoints.min.js' %}"></script>
+    <script src="{% static 'vendor/counterup/counterup.min.js' %}"></script>
+    <script src="{% static 'vendor/owl.carousel/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+    <script src="{% static 'vendor/venobox/venobox.min.js' %}"></script>
+    <script src="{% static 'vendor/aos/aos.js' %}"></script>
+    {% block scripts %}{% endblock scripts %}
+
+    <!-- Template Main JS File -->
+    <script src="{% static 'js/main.js' %}"></script>
+  </body>
+</html>

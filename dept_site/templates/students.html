@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}| CSE Students |{% endblock title %}
+{% block content %}  
+{% block people_class %} active{% endblock people_class %}
+  
+<!-- 
+<section class="studenets">
+  <h2 align="center" data-aos="fade-up" style="margin-top: 70px;">List of Students</h2>
+</section>
+<div class="container">
+  <div class="row justify-content-around">
+    <div class="col-4">
+      <button class="btn btn-primary btn-lg">B.Tech-2016 </button>
+    </div>
+    <div class="col-4">
+      <button class="btn btn-primary btn-lg" >B.Tech-2017 </button>
+    </div>
+  </div>
+
+  <div class="row justify-content-around" style="margin-top: 70px; margin-bottom: 70px;">
+    <div class="col-4">
+      <button class="btn btn-primary btn-lg">B.Tech-2016 </button>
+    </div>
+    <div class="col-4">
+      <button class="btn btn-primary btn-lg" >B.Tech-2017 </button>
+    </div>
+  </div>
+</div>
+ -->
+
+<section class="studenets container">
+  <h2 align="center" data-aos="fade-up" style="margin-top: 70px;">List of Students</h2>
+ <table class="table">
+  <thead class="thead-info">
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">B.Tech</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row"></th>
+      <td><button class="btn btn-primary btn-lg" >B.Tech-2016 </button></td>
+      <td></td>
+      <td><button class="btn btn-primary btn-lg" >B.Tech-2017 </button></td>
+    </tr>
+    <tr>
+      <th scope="row"></th>
+      <td><button class="btn btn-primary btn-lg" >B.Tech-2018 </button></td>
+      <td></td>
+      <td><button class="btn btn-primary btn-lg" >B.Tech-2019 </button></td>
+    </tr>
+  </tbody>
+</table>
+
+</section>
+ {% endblock %}

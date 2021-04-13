@@ -1,0 +1,38 @@
+{% extends 'admin/dash.html' %}
+{% load widget_tweaks %}
+{% block content %}
+
+          <div class="col-md-8 mt-4">
+            <h4 class="pb-4">Gallery</h4>
+            <div class="card">
+              <div class="card-body">
+                <form action='gallery' method='post'>
+                {% csrf_token %}
+                  <div class="form-row">
+                    <label class="form-label" for="customFile">Upload Image</label></br>
+                    {% render_field form.image %}
+                  </div>
+                  <div class="form-row">
+                    {% render_field form.category class="form-control" %}
+                  </div>
+                  <div class="form-row">
+                    <label class="form-label" for="customFile">Keep the name same for all images of a particular workshop or event or talk so that they can be grouped in gallery section</label>
+                    {% render_field form.name class="form-control" placeholder="Enter the name" %}
+                  </div>
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+              </div>
+
+        </div>
+      </div>
+      <!-- /.container-fluid -->
+
+    </div>
+
+
+
+
+
+
+
+{% endblock %}

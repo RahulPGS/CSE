@@ -1,0 +1,99 @@
+{% extends 'admin/dash.html' %}
+{% load widget_tweaks %}
+{% block content %}
+<form class="well form-horizontal" method="post"  id="contact_form" action='faculty_form' enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.media }}
+<div class="col-md-9 register-right m-t-5">
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                <h3 class="register-heading">New Faculty Details Entry Form</h3>
+                                <div class="row register-form">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                        {% render_field form.name class="form-control" placeholder='Full name*' %}
+                                        </div>
+                                        
+
+
+                                       <div class="form-group">
+                                            {% comment %} <select class="form-control">
+                                                <option class="hidden"  selected disabled>Please select your Education Level</option>
+                                                <option>M.Tech</option>
+                                                <option>B.Tech</option>
+                                                
+                                            </select> {% endcomment %}
+                                        {% render_field form.edu_level class="form-control" placeholder='Select' %}
+
+                                        </div>
+
+                                         <div class="form-group">  
+                                      {% render_field form.education class="form-control" placeholder='Education in detail'style='height:60px' %}
+
+                                        </div>
+
+                                        <div class="form-group">
+                                            {% render_field form.spec_sub class="form-control" placeholder="Specialized Subject *"  %}
+                                        </div>
+
+                                        <div class="form-group">
+                                            {% render_field form.work_exp class="form-control"  placeholder="Work Experience in detailed" %}
+                                        </div>
+                                        
+
+                                        <div class="form-group">
+                                            {% render_field form.publication class="form-control"  placeholder="List of Publications"  %}
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            {% render_field form.projects class="form-control"  placeholder="List of Projects done" %} 
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="maxl">
+                                                {% render_field form.gender class="form-control" %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            {% render_field form.email class="form-control" placeholder="Email *" %}
+                                        </div>
+                                        <div class="form-group">
+                                            {% render_field form.phone minlength="10" maxlength="10"  class="form-control" placeholder="Phone number*" %}
+                                        </div>
+
+                                        <div class="form-group">
+                                            {% render_field form.sub_dealt class="form-control"  placeholder="List of Subject Dealt" %}
+                                        </div>
+
+                                        <div class="form-group">
+                                            {% render_field form.conf_attended class="form-control"  placeholder="List of Conferrences Attended" %}
+                                        </div>
+
+                                        <div class="form-group">
+                                            {% render_field form.workshops_attended class="form-control"  placeholder="List of Workshop Attended" %}
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="form-label" for="customFile">Upload Latest Photo*</label>
+                                            {% render_field form.image %}
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label" for="customFile">Upload Latest Resume/CV*</label>
+                                            {% render_field form.cv %}
+                                        </div>
+
+                                        <Button type="submit" class="btnRegister">Submit</Button>
+                                    </div>
+                                </div>
+                            </div>
+{% endblock %}
+{% block scripts %}
+<script>
+    $('#id_edu_level').children('option:selected').text('Select Education level')
+    $('#id_gender').children('option:selected').text('Select gender')
+    $('textarea').css({height:'62px'})
+</script>
+{% endblock scripts %}

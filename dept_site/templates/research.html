@@ -1,0 +1,52 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% block title %}| CSE Research Areas |{% endblock title %}
+{% block content %} 
+{% block research_class %}active{%endblock research_class %}
+
+<section class="studenets">
+  <h2 align="center" data-aos="fade-up" style="margin-top: 70px;">Research Areas</h2>
+  <div class="container" style="margin-top: 50px;">
+    <div class="row">
+    <div class="col-6">
+       <div class="card">
+        <img class="card-img" src="{% static 'img/ml.jpg' %}" alt="machine Learning">
+        <div class="card-img-overlay text-white d-flex justify-content-center align-items-end">
+          <p>Machine Learning</p>
+        </div>
+      </div>     
+    </div>
+    <div class="col-6">
+       <div class="card">
+        <img class="card-img" src="{% static 'img/cn.jpg' %}" alt="computer Networks">
+        <div class="card-img-overlay text-white d-flex justify-content-center align-items-end overlay-dark">
+          <p>Computer Networks</p>
+        </div>
+      </div>     
+    </div>
+  </div>
+  <div class="row" style="margin-top: 70px;">
+    <div class="col-6">
+       <div class="card">
+        <img class="card-img card-img-h" src="{% static 'img/wd.jpeg' %}" alt="web development">
+        <div class="card-img-overlay text-white d-flex justify-content-center align-items-end">
+          <p>Web Technologies</p>
+        </div>
+      </div>     
+    </div>
+    <div class="col-6">
+       <div class="card">
+        <img class="card-img card-img-h" src="{% static 'img/iot.jpg' %}" alt="iot">
+        <div class="card-img-overlay text-white d-flex justify-content-center align-items-end overlay-dark">
+          <p>Internet of Things</p>
+        </div>
+      </div>     
+    </div>
+  </div>
+</div>
+</div>
+
+</section>
+
+
+{% endblock %}
