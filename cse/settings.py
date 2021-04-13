@@ -130,7 +130,7 @@ MAX_UPLOAD_SIZE = 10485760
 
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'dept_site/static')
+    os.path.join(BASE_DIR, 'dept_site/Static')
 ]
 
 
