@@ -2,11 +2,13 @@
 {% load widget_tweaks %}
 {% block content %}
               <!-- column -->
-              <div class="col-md-8 mt-4">
+              <div class="col-md-10 mt-4 container">
                 <h4 class="pb-4">Publication Details</h4>
                 <div class="card">
                   <div class="card-body">
-                    <form>
+                    <form method='post' action='{% if id %}/admin/publications/{{id}} {% else %}publications{% endif %}' enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{form.media}}
                       <div class="form-row">
                           <div class="form-group col-md-6">
                             {% render_field form.name placeholder="Full Name" class="form-control" %}
@@ -32,6 +34,14 @@
           
                      </div>
 
+                     <div class="form-group">
+
+                      <label>Abstract of the publication. (PDF/PPT/Word): </label>
+
+                       {% render_field form.proof class="form-control"  %}
+          
+                     </div>
+
 
                       <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
@@ -44,6 +54,54 @@
           <!-- /.container-fluid -->
 
         </div>
+      </div>
+
+      <div class="container table-responsive col-md-10">
+                    <h4 class="pb-4">Publications</h4>
+                    <table class="table table-bordered table-hover modal_all" style="text-align: center;">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">S.No</th>
+                                <th scope="col">Id.No</th>
+                                <th scope="col">Title</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Edit</th>
+                                <th scope="col">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for o in objects %}
+                            <tr>
+                                <td scope="row"></td>
+                                <th scope="row">{{o.id_no}}</th>
+                                <td>{{o.name}}</td>
+                                <td>{{o.description|truncatechars:30}}</td>
+                               
+                                <td><a href="publications/{{o.id}}"><i class="fas fa-edit"></i></a></td>
+                                <td>
+                                    <a href="#" data-toggle="modal" data-target="#viewmodel{{o.id}}"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                    <div class="modal fade top" id="viewmodel{{o.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabe2" aria-hidden="true" data-backdrop="true">
+                                        <div class="modal-dialog modal-frame modal-top modal-notify modal-info" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-body">
+                                                    <div class="row d-flex justify-content-center align-items-center" style="z-index: 1000">
+                                                        <h4> Deleting Publication {{o.title}}</h4>
+                                                        <p>Clicking on OK will perminantally delete this publication from the database </p>
+                                                        <p>Are you sure ?</p>
+                                                        <hr>
+                                                        <a href="admin_delete/{{o.id}}/publication"><button class="btn btn-success" style="font-size: 15px;">Yes</button></a>
+                                                        <button href="#" class="btn btn-danger" data-dismiss="modal" style="font-size: 15px; margin-left: 5px;">Cancel</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                          {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
 
 
 

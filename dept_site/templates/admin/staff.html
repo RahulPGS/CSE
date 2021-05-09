@@ -2,9 +2,9 @@
 {% load widget_tweaks %}
 {% block content %}
 
-          <div class="col-md-8 py-5">
+          <div class="col-md-10 py-5 container">
             <h4 class="pb-4">Enter the details of Staff</h4>
-            <form action="staff" method='post'>
+            <form action="{% if id %}/admin/staff/{{id}}{% else %}staff{% endif %}" method='post'>
             {% csrf_token %}
                 <div class="form-row">
                     <div class="form-group col-md-6">
@@ -16,7 +16,7 @@
                   </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        {% render_field form.phone placeholder="Mobile No." class="form-control" %}
+                        {% render_field form.phone placeholder="Mobile No." class="form-control" type="number" minlength="10" maxlength="10" %}
                     </div>
 
                     <div class="form-group col-md-6">
@@ -36,23 +36,56 @@
           <!-- /.container-fluid -->
 
         </div>
+<!---   Table for Displaying  Publications-->
+                <div class="container table-responsive col-md-10">
+                    <h4 class="pb-4">Staff</h4>
+                    <table class="table table-bordered table-hover modal_all" style="text-align: center;">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">S.No</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Profession</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Phone no.</th>
+                                <th scope="col">Edit</th>
+                                <th scope="col">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for s in staff %}
+                             <tr>
+                                <td scope="row"></td>
+                                <th scope="row">{{s.name}}</th>
+                                <th scope="row">{{s.profession}}</th>
+                                <td>{{s.email}}</td>
+                                <td>{{s.phone}}</td>
+                               
+                                <td><a href="staff/{{s.id}}"><i class="fas fa-edit"></i></a></td>
+                                <td>
+                                    <a href="#" data-toggle="modal" data-target="#viewmodel2"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                    <div class="modal fade top" id="viewmodel2" tabindex="-1" role="dialog" aria-labelledby="myModalLabe2" aria-hidden="true" data-backdrop="true">
+                                        <div class="modal-dialog modal-frame modal-top modal-notify modal-info" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-body">
+                                                    <div class="row d-flex justify-content-center align-items-center">
+                                                       <h4> Deleting Staff {{s.name}}</h4>
+                                                        <p>Clicking on OK will perminantally delete this event from the database </p>
+                                                        <p>Are you sure ?</p>
+                                                        <hr>
+                                                        <a href="admin_delete/{{s.id}}/staff"><button class="btn btn-success" style="font-size: 15px;">Yes</button></a>
+                                                        <button href="#" class="btn btn-danger" data-dismiss="modal" style="font-size: 15px; margin-left: 5px;">Cancel</button>
 
-        <footer class="footer">
-          <div class="container-fluid">
-            <div class="row text-muted">
-              <div class="col-6 text-left">
-                <p class="mb-0">
-                  <a href="index.html" class="text-muted"><strong>Design & Developed By Team-ARM </strong></a> &copy
-                </p>
-              </div>
-          </div>
-        </footer>
-
-      </div>
-    </div>
-    <!-- /#page-content-wrapper -->
-
-  </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
   <!-- /#wrapper -->
 
 

@@ -9,43 +9,72 @@ import django
 
 
 urlpatterns = [
+    #dynamic pages
     path('', views.main, name='main'),
     path('faculty', views.faculty, name='faculty'),
-    path('publications', TemplateView.as_view(
-        template_name='publication.html'), name='publications'),
-    path('awards_honours', TemplateView.as_view(
-        template_name='awards_honours.html'), name='awards_honours'),
+    path('students', views.students, name='students'),
+    path('publications', views.publications , name='publications'),
+    path('awards_honours', views.awards_honours, name='awards_honours'),
+    path('gallery', views.gallery, name='gallery'),
+    path('staff', views.staff, name='staff'),
+    path('news', views.news, name='news'),
+    path('events', views.events, name='events'),
+
+    #static pages
     path('web_team', TemplateView.as_view(
         template_name='web_team.html'), name='web_team'),
     path('curriculam', TemplateView.as_view(
         template_name='curriculam.html'), name='curriculam'),
     path('courses', TemplateView.as_view(
         template_name='course.html'), name='courses'),
-    path('students', TemplateView.as_view(
-        template_name='students.html'), name='students'),
-    path('staff', views.staff, name='staff'),
-    path('news_events', TemplateView.as_view(
-        template_name='news.html'), name='news_events'),
     path('labs', TemplateView.as_view(
         template_name='labs.html'), name='labs'),
     path('research_areas', TemplateView.as_view(
         template_name='research.html'), name='reasearch_areas'),
-    path('events_talks', TemplateView.as_view(
-        template_name='events.html'), name='events_talks'),
-    path('gallery', TemplateView.as_view(
-        template_name='gallery.html'), name='gallery'),
+    
+
+    #admin
+    path('admin/dashboard', views.admin_dashboard, name='admin_dashboard'),
+
     path('admin/faculty', views.faculty_form, name='admin_faculty'),
+    path('admin/faculty/<int:id>', views.faculty_form, name='admin_faculty'),
+
     path('admin/events', views.admin_events, name='admin_events'),
+    path('admin/events/<int:id>', views.admin_events, name='admin_events'),
+
     path('admin/staff', views.admin_staff, name='admin_staff'),
+    path('admin/staff/<int:id>', views.admin_staff, name='admin_staff'),
+
+    path('admin/students', views.admin_students, name='admin_students'),
+    path('admin/students/<int:id>', views.admin_students, name='admin_students'),
+
     path('admin/academic_calender', views.admin_a_cal, name='admin_a_cal'),
     path('admin/timetable', views.admin_tt, name='admin_tt'),
+    
     path('admin/publications', views.admin_publication, name='admin_publication'),
-    path('admin/awards_honors', views.admin_awards, name='admin_awards'),
-    path('admin/events_talks', views.admin_events, name='admin_events'),
+    path('admin/publications/<int:id>', views.admin_publication, name='admin_publication'),
+
+    path('admin/awards_honours', views.admin_awards, name='admin_awards'),
+    path('admin/awards_honours/<int:id>', views.admin_awards, name='admin_awards'),
+
     path('admin/gallery', views.admin_gallery, name='admin_gallery'),
+
     path('admin/news', views.admin_news, name='admin_news'),
+    path('admin/news/<int:id>', views.admin_news, name='admin_news'),
+
+    path('admin/slider', views.admin_slider, name='admin_slider'),
+    path('admin/slider/<int:id>', views.admin_slider, name='admin_slider'),
+
+    path('faculty_form', views.new_faculty_form, name='faculty_form'),
+    path('staff_form', views.new_staff_form, name='staff_form'),
+    path('publication_form', views.new_publication_form, name='publication_form'),
+    path('award_form', views.new_awards_form, name='award_form'),
+
+    path('admin/accept/<int:id>/<str:model>', views.admin_accept, name='admin_accept'),
+    path('admin/admin_delete/<int:id>/<str:model>', views.admin_delete, name='admin_delete'),
 
 
+    #to serve media and static files
     url(r'^media/(?P<path>.*)$', serve,
         {'document_root': settings.MEDIA_ROOT}),
     url(r'^static/(?P<path>.*)$', serve,

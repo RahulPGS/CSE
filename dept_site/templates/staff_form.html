@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block title%}| CSE Faculty |{% endblock title%}
+{% block people_class %}active{% endblock people_class %}
+{% load widget_tweaks %}
+{% block content %}
+  <section id="forms" style='padding:0'>
+        <div class="container-fluid" style='padding:0'>
+    <form class="well form-horizontal" method="post"  id="contact_form" action='staff_form'>
+    {% csrf_token %}
+
+<div class="container-fluid register" style='padding:0; margin-top:0'>
+                <div class="row">
+                    <div class="col-md-3 register-left">
+                        <img src="assets/img/logo.jpg" alt=""/>
+                        <h3>Welcome</h3>
+                        <p>If you are a new staff of CSE department of RGUKT Srikakulam fill up the form.</p>
+                    </div>
+                    <div class="col-md-9 register-right">
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                <h3 class="register-heading">New Staff entry Form</h3>
+                                <div class="row register-form">
+                                    <div class="col-md-10 container">
+                                        <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                        {% render_field form.name placeholder="Full Name" class="form-control" %}
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                        {% render_field form.email class="form-control" placeholder="Email" %}
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            {% render_field form.phone placeholder="Mobile No." class="form-control" type="number" minlength="10" maxlength="10" %}
+                                        </div>
+
+                                        <div class="form-group col-md-6">
+                                            {% render_field form.profession placeholder="Profession" class="form-control" %}
+                                        </div>
+
+                                        <Button type="submit" class="btnRegister facbutton">Submit</Button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </form>
+        
+
+            </div>
+</section>
+{% endblock content %}
+
+{% block scripts %}
+<script>
+    $('#id_edu_level').children('option:selected').text('Select Education level')
+    $('#id_gender').children('option:selected').text('Select gender')
+    $('textarea').css({height:'62px'})
+</script>
+{% endblock scripts %}

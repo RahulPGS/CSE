@@ -1,22 +1,40 @@
 {% extends 'base.html' %} 
 {% load static %} 
 {% block title %}| CSE News |{% endblock title %}
-{% block content %} 
 {% block news_class %}active{%endblock %}
+
+{% block content %} 
 
 
 <section class="studenets">
-  <h2 align="center" data-aos="fade-up" style="margin-top: 70px;">Latest News</h2>
+  <h2 align="center" data-aos="fade-up" style="margin-top: 30px;">Latest News</h2>
   <div class="container">
-    <article class="shade-two" style="margin-top: 70px;">
+    <article class="shade-two" style="margin-top: 40px;">
     <div class="container">
       <header>
         <p></p>
       </header>
       <table class="table">
+      {% for n in news %}
+      <thead data-aos="fade-up" id={{n.id}}>
+      <tr>
+        <th>{{n.category}}</th>
+        <th>{{n.title}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="width: 120px;">
+          <ul>
+          </ul>
+        </td>
+        <td>{{n.description}}</td>
+      </tr>
+    </tbody>
+      {% endfor %}
         <thead data-aos="fade-up">
       <tr>
-        <th>1</th>
+        <th>Announcement</th>
         <th>COVID Instructions</th>
       </tr>
     </thead>

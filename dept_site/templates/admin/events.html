@@ -2,11 +2,11 @@
 {% load widget_tweaks %}
 {% block content %}
 
-          <div class="col-md-8 mt-4">
+          <div class="col-md-10 mt-4 container">
             <h4 class="pb-4">Events and Workshop Details</h4>
             <div class="card">
               <div class="card-body">
-                <form method='post' action='events_talks'>
+                <form method='post' action='{% if id %}/admin/events/{{id}} {% else %}events{% endif %}'>
                 {% csrf_token %}
                   <div class="form-row">
                     <div class="form-group col-md-6">
@@ -23,6 +23,9 @@
                 <div class="form-group">
                   {% render_field form.name class="form-control" aria-describedby="emailHelp" placeholder="Enter Name of Programme" %}
                 </div>
+                <div class="form-group">
+                  {% render_field form.description class="form-control" aria-describedby="emailHelp" placeholder="Enter Description of Programme" %}
+                </div>
                   <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
 
@@ -32,8 +35,65 @@
 
       </div>
       <!-- /.container-fluid -->
+
+       <!---   Table for Displaying  Publications-->
+                <div class="container table-responsive col-md-10">
+                    <h4 class="pb-4">Events</h4>
+                    <table class="table table-bordered table-hover modal_all" style="text-align: center;">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">S.No</th>
+                                <th scope="col">Resource Person</th>
+                                <th scope="col">Convinor</th>
+                                <th scope="col">Name of the Program</th>
+                                <th scope="col">Edit</th>
+                                <th scope="col">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for e in events %}
+                             <tr>
+                                <td scope="row"></td>
+                                <th scope="row">{{e.res_person}}</th>
+                                <td>{{e.covinor}}</td>
+                                <td>{{e.name}}</td>
+                               
+                                <td><a href="events/{{e.id}}"><i class="fas fa-edit"></i></a></td>
+                                <td>
+                                    <a href="#" data-toggle="modal" data-target="#viewmodel2"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                    <div class="modal fade top" id="viewmodel2" tabindex="-1" role="dialog" aria-labelledby="myModalLabe2" aria-hidden="true" data-backdrop="true">
+                                        <div class="modal-dialog modal-frame modal-top modal-notify modal-info" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-body">
+                                                    <div class="row d-flex justify-content-center align-items-center">
+                                                       <h4> Deleting Event {{e.name}}</h4>
+                                                        <p>Clicking on OK will perminantally delete this event from the database </p>
+                                                        <p>Are you sure ?</p>
+                                                        <hr>
+                                                        <a href="admin_delete/{{e.id}}/event"><button class="btn btn-success" style="font-size: 15px;">Yes</button></a>
+                                                        <button href="#" class="btn btn-danger" data-dismiss="modal" style="font-size: 15px; margin-left: 5px;">Cancel</button>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
     <!-- /#page-content-wrapper --> 
   <!-- /#wrapper -->
 {% endblock %}
-
+{% block scripts %}
+<script>
+  $(document).ready(function(){
+    $('table').find('tr').not(':eq(0)').each(function(i){
+        $(this).children('td:eq(0)').text(i+1).css('font-weight', 'bold');
+    });
+});
+</script>
+{% endblock scripts %}
 

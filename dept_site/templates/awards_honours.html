@@ -1,12 +1,55 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}| CSE Awards and Honors |{% endblock title %}
-{% block content %}
 {% block highlights_class %} active {% endblock  %}
+
+{% block content %}
 
 <section class="studenets">
   <h2 align="center" data-aos="fade-up" style="margin-top: 70px;">List of Awards & Honours</h2>
-  <h3 align='center'> >> No awards yet</h3>
+  <div class="container">
+    <article class="shade-two" style="margin-top: 70px">
+      <div class="container">
+        <header>
+          <p></p>
+        </header>
+        {% for a in awards_honours %}
+        <table class="table">
+          <thead data-aos="fade-up">
+            <tr>
+              <th>Title</th>
+              <th>
+                {{a.title}}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="width: 120px">
+                <ul>
+                  <li><strong>{{a.id_no}}</strong></li>
+                  <li><strong>{{a.name}}</strong></li>
+                </ul>
+              </td>
+              <td>
+                <p>
+                  {{a.description}}
+                  <a
+                    href="{{a.link}}"
+                    >Know More
+                  </a>
+                  {% if p.proof %}
+                  <a href={{p.proof.url}} targert='_blank'> View Abstract</a>
+                  {% endif %}
+                </p>
+              </td>
+            </tr>
+          </tbody>
+        {% endfor %}
+      </table>
+      </div>
+    </article>
+  </div>
 </section>
 
 

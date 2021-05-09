@@ -1,0 +1,341 @@
+{% extends 'admin/dash.html' %}
+{% load widget_tweaks %}
+{% block content %}
+
+
+          <!-- Begin Page Content -->
+          <div class="container-fluid px-lg-4">
+            <div class="row">
+              <div class="col-md-12 mt-lg-4 mt-4">
+                <!-- Page Heading -->
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                  <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="row">
+
+                  <div class="col-sm-3">
+                    <div class="card">
+                      <div class="card-body">
+                        <h5 class="card-title mb-4">Departments</h5>
+                        <h1 class="display-5 mt-1 mb-3">4+</h1>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-3">
+                    <div class="card">
+                      <div class="card-body">
+                        <h5 class="card-title mb-4">Students </h5>
+                        <h1 class="display-5 mt-1 mb-3 ">3000+</h1>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-3">
+                    <div class="card">
+                      <div class="card-body">
+                        <h5 class="card-title mb-4">Workshops</h5>
+                        <h1 class="display-5 mt-1 mb-3 ">6+</h1>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-3">
+                    <div class="card">
+                      <div class="card-body">
+                        <h5 class="card-title mb-4">Acheivements</h5>
+                        <h1 class="display-5 mt-1 mb-3 ">10+</h1>
+                      </div>
+                    </div>
+                  </div>
+
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <!-- /.container-fluid -->
+
+        </div>
+
+
+
+<!--   Table for Admin Acceptance -->
+
+
+<div class="container-fluid table-responsive" > 
+<div class="d-sm-flex align-items-center justify-content-between mb-4"><h1 class="h3 mb-0 text-gray-800">New Faculty</h1></div>
+
+<table class="table table-bordered table-hover modal_all" style="text-align: center;">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">S.No</th>
+      <th scope="col">Name</th>
+      <th scope="col">Specialized subject</th>
+      <th scope="col">Education level</th>
+      <th scope="col">Email</th>
+      <th scope="col">Phn no.</th>
+      <th scope="col">Accept&nbsp;<i class="fa fa-check" aria-hidden="true"></i></th>
+      <th scope="col">Decline&nbsp;<i class="fa fa-ban" aria-hidden="true"></i></th>
+    </tr>
+  </thead>
+  <tbody>
+
+    {% for f in f_pendings %}
+    <tr>
+      <td scope="row"></td>
+      <td>{{f.name}}</td>
+      <td>{{f.spec_sub}}</td>
+      <td>{{f.edu_level}}</td>
+      <td>{{f.email}}</td>
+      <td>{{f.phone}}</td>
+      <td><a href="accept/{{f.id}}/faculty"><button class="btn btn-success">Accept</button></a></td>
+      <td>
+          <a href="#" data-toggle="modal" data-target="#viewmodel{{s.id}}"><button class="btn btn-danger">Decline</button></a>
+          <div class="modal fade top" id="viewmodel{{s.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabe2" aria-hidden="true" data-backdrop="true">
+              <div class="modal-dialog modal-frame modal-top modal-notify modal-info" role="document">
+                  <div class="modal-content">
+                      <div class="modal-body">
+                          <div class="row d-flex justify-content-center align-items-center" style="z-index: 1000">
+                              <h4> Rejecting Faculty {{f.name}}</h4>
+                              <p>Clicking on OK will perminantally delete the faculty entry from the database </p>
+                              <p>Are you sure ?</p>
+                              <hr>
+                              <a href="admin_delete/{{f.id}}/faculty"><button class="btn btn-success" style="font-size: 15px;">Yes</button></a>
+                              <button href="#" class="btn btn-danger" data-dismiss="modal" style="font-size: 15px; margin-left: 5px;">Cancel</button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </td>
+    </tr>
+    {% endfor %}
+
+    
+  </tbody>
+</table>
+</div>
+
+
+<div class="container-fluid table-responsive" > 
+<div class="d-sm-flex align-items-center justify-content-between mb-4"><h1 class="h3 mb-0 text-gray-800">New Staff</h1></div>
+
+<table class="table table-bordered table-hover modal_all" style="text-align: center;">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">S.No</th>
+      <th scope="col">Staff Name</th>
+      <th scope="col">Profession</th>
+      <th scope="col">Email</th>
+      <th scope="col">Phn no.</th>
+      <th scope="col">Accept&nbsp;<i class="fa fa-check" aria-hidden="true"></i></th>
+      <th scope="col">Decline&nbsp;<i class="fa fa-ban" aria-hidden="true"></i></th>
+    </tr>
+  </thead>
+  <tbody>
+
+    {% for s in s_pendings %}
+    <tr>
+      <td scope="row"></td>
+      <td>{{s.name}}</td>
+      <td>{{s.profession}}</td>
+      <td>{{s.email}}</td>
+      <td>{{s.phone}}</td>
+      <td><a href="accept/{{s.id}}/staff"><button class="btn btn-success">Accept</button></a></td>
+       <td>
+          <a href="#" data-toggle="modal" data-target="#viewmodel{{s.id}}"><button class="btn btn-danger">Decline</button></a>
+          <div class="modal fade top" id="viewmodel{{s.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabe2" aria-hidden="true" data-backdrop="true">
+              <div class="modal-dialog modal-frame modal-top modal-notify modal-info" role="document">
+                  <div class="modal-content">
+                      <div class="modal-body">
+                          <div class="row d-flex justify-content-center align-items-center" style="z-index: 1000">
+                              <h4> Rejecting Staff {{s.name}}</h4>
+                              <p>Clicking on OK will perminantally delete this staff entry from the database </p>
+                              <p>Are you sure ?</p>
+                              <hr>
+                              <a href="admin_delete/{{s.id}}/staff"><button class="btn btn-success" style="font-size: 15px;">Yes</button></a>
+                              <button href="#" class="btn btn-danger" data-dismiss="modal" style="font-size: 15px; margin-left: 5px;">Cancel</button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </td>
+    </tr>
+    {% endfor %}
+
+    
+  </tbody>
+</table>
+</div>
+
+
+<div class="container-fluid table-responsive" > 
+<div class="d-sm-flex align-items-center justify-content-between mb-4"><h1 class="h3 mb-0 text-gray-800">New Publications</h1></div>
+
+<table class="table table-bordered table-hover modal_all" style="text-align: center;">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">S.No</th>
+      <th scope="col">Id No</th>
+      <th scope="col">Student Name</th>
+      <th scope="col">Publication Title</th>
+      <th scope="col">View</th>
+      <th scope="col">Accept&nbsp;<i class="fa fa-check" aria-hidden="true"></i></th>
+      <th scope="col">Decline&nbsp;<i class="fa fa-ban" aria-hidden="true"></i></th>
+    </tr>
+  </thead>
+  <tbody>
+
+    {% for p in p_pendings %}
+    <tr>
+      <td scope="row"></td>
+      <td>{{p.id_no}}</td>
+      <td>{{p.name}}</td>
+      <td>{{p.title}}</td>
+      <td>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#view{{p.id}}">View</button>
+        <div class="modal fade top" id="view{{p.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+          aria-hidden="true" data-backdrop="true">
+          <div class="modal-dialog modal-frame modal-top modal-notify modal-info" role="document">
+            <div class="modal-content">
+              <div class="modal-body">
+                <div class="row d-flex justify-content-center align-items-center">
+                  <h6>{{p.title}}</h6><br>
+
+                  <p class="pt-3 pr-2">{{p.description}}</p>
+
+             
+                  <a type="button" class="btn btn-outline-primary waves-effect" href={{p.proof.url}} target='_blank'>View proof</a>&nbsp;
+                  <a type="button" class="btn btn-outline-primary waves-effect" data-dismiss="modal">Close</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </td>
+      <td><a href="accept/{{p.id}}/publication"><button class="btn btn-success">Accept</button></a></td>
+      <td>
+          <a href="#" data-toggle="modal" data-target="#viewmodel{{p.id}}"><button class="btn btn-danger">Decline</button></a>
+          <div class="modal fade top" id="viewmodel{{p.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabe2" aria-hidden="true" data-backdrop="true">
+              <div class="modal-dialog modal-frame modal-top modal-notify modal-info" role="document">
+                  <div class="modal-content">
+                      <div class="modal-body">
+                          <div class="row d-flex justify-content-center align-items-center" style="z-index: 1000">
+                              <h4> Rejecting Publication {{p.name}}</h4>
+                              <p>Clicking on OK will perminantally delete this publication entry from the database </p>
+                              <p>Are you sure ?</p>
+                              <hr>
+                              <a href="admin_delete/{{p.id}}/publication"><button class="btn btn-success" style="font-size: 15px;">Yes</button></a>
+                              <button href="#" class="btn btn-danger" data-dismiss="modal" style="font-size: 15px; margin-left: 5px;">Cancel</button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </td>
+    </tr>
+    {% endfor %}
+
+    
+  </tbody>
+</table>
+</div>
+
+
+<div class="container-fluid table-responsive" > 
+<div class="d-sm-flex align-items-center justify-content-between mb-4"><h1 class="h3 mb-0 text-gray-800">New Awards</h1></div>
+
+<table class="table table-bordered table-hover modal_all" style="text-align: center;">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">S.No</th>
+      <th scope="col">Id No</th>
+      <th scope="col">Student Name</th>
+      <th scope="col">Award Title</th>
+      <th scope="col">View</th>
+      <th scope="col">Accept&nbsp;<i class="fa fa-check" aria-hidden="true"></i></th>
+      <th scope="col">Decline&nbsp;<i class="fa fa-ban" aria-hidden="true"></i></th>
+    </tr>
+  </thead>
+  <tbody>
+
+    {% for p in a_pendings %}
+    <tr>
+      <td scope="row"></td>
+      <td>{{p.id_no}}</td>
+      <td>{{p.name}}</td>
+      <td>{{p.title}}</td>
+      <td>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#view{{p.id}}">View</button>
+        <div class="modal fade top" id="view{{p.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+          aria-hidden="true" data-backdrop="true">
+          <div class="modal-dialog modal-frame modal-top modal-notify modal-info" role="document">
+            <div class="modal-content">
+              <div class="modal-body">
+                <div class="row d-flex justify-content-center align-items-center">
+                  <h6>{{p.title}}</h6><br>
+
+                  <p class="pt-3 pr-2">{{p.description}} </p>
+
+             
+                  <a type="button" class="btn btn-outline-primary waves-effect" href={{p.proof.url}} target='_blank'>View proof</a>&nbsp;
+                  <a type="button" class="btn btn-outline-primary waves-effect" data-dismiss="modal">Close</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </td>
+      <td><a href="accept/{{p.id}}/award"><button class="btn btn-success">Accept</button></a></td>
+      <td>
+          <a href="#" data-toggle="modal" data-target="#viewmodel{{p.id}}"><button class="btn btn-danger">Decline</button></a>
+          <div class="modal fade top" id="viewmodel{{p.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabe2" aria-hidden="true" data-backdrop="true">
+              <div class="modal-dialog modal-frame modal-top modal-notify modal-info" role="document">
+                  <div class="modal-content">
+                      <div class="modal-body">
+                          <div class="row d-flex justify-content-center align-items-center" style="z-index: 1000">
+                              <h4> Rejecting Award {{p.title}}</h4>
+                              <p>Clicking on OK will perminantally delete this award entry from the database </p>
+                              <p>Are you sure ?</p>
+                              <hr>
+                              <a href="admin_delete/{{p.id}}/award"><button class="btn btn-success" style="font-size: 15px;">Yes</button></a>
+                              <button href="#" class="btn btn-danger" data-dismiss="modal" style="font-size: 15px; margin-left: 5px;">Cancel</button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </td>
+    </tr>
+    {% endfor %}
+
+    
+  </tbody>
+</table>
+</div>
+
+        
+
+
+
+
+
+
+
+  </div>
+{% endblock %}
+{% block scripts %}
+<script>
+  $(document).ready(function(){
+    $('table').find('tr').not(':eq(0)').each(function(i){
+        $(this).children('td:eq(0)').text(i+1).css('font-weight', 'bold');
+    });
+});
+</script>
+{% endblock scripts %}

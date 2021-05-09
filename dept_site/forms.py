@@ -29,17 +29,34 @@ class publication_form(forms.ModelForm):
         model = models.Publication
         exclude = {}
 
-class event_form(forms.ModelForm):
-    class Meta:
-        model = models.Events
-        exclude = {}
-
 class gallery_form(forms.ModelForm):
     class Meta:
         model = models.Gallery
-        exclude = {}
+        fields = ['category', 'name']
+
+class GalleryImage(gallery_form()):
+     images = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}))
+
+     class Meta(gallery_form.Meta):
+         fields = gallery_form.Meta.fields + ['images',]
 
 class news_form(forms.ModelForm):
     class Meta:
-        model = models.Notification
+        model = models.News
+        exclude = {}
+
+class slide_form(forms.ModelForm):
+    class Meta:
+        model = models.Slide
+        exclude = {}
+    
+class award_form(forms.ModelForm):
+    class Meta:
+        model = models.Award
+        exclude = {}
+
+
+class batch_form(forms.ModelForm):
+    class Meta:
+        model = models.Batch
         exclude = {}

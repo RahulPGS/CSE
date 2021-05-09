@@ -1,10 +1,10 @@
 {% extends 'admin/dash.html' %}
 {% load widget_tweaks %}
 {% block content %}
-<form class="well form-horizontal" method="post"  id="contact_form" action='faculty_form' enctype="multipart/form-data">
+<form class="well form-horizontal" method="post"  id="contact_form" action='{% if id %}/admin/faculty/{{id}}{% else %}faculty{% endif %}' enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.media }}
-<div class="col-md-9 register-right m-t-5">
+<div class="col-md-10 container register-right m-t-5">
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                                 <h3 class="register-heading">New Faculty Details Entry Form</h3>
@@ -61,7 +61,7 @@
                                             {% render_field form.email class="form-control" placeholder="Email *" %}
                                         </div>
                                         <div class="form-group">
-                                            {% render_field form.phone minlength="10" maxlength="10"  class="form-control" placeholder="Phone number*" %}
+                                            {% render_field form.phone minlength="10" maxlength="10"  class="form-control" placeholder="Phone number*" type="number" %}
                                         </div>
 
                                         <div class="form-group">
@@ -85,15 +85,71 @@
                                             {% render_field form.cv %}
                                         </div>
 
-                                        <Button type="submit" class="btnRegister">Submit</Button>
+                                        <Button type="submit" class="btnRegister facbutton">Submit</Button>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </form>
+
+<!---   Table for Displaying  Publications-->
+                <div class="container table-responsive col-md-10">
+                    <h4 class="pb-4">Faculty</h4>
+                    <table class="table table-bordered table-hover modal_all" style="text-align: center;">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">S.No</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Education level</th>
+                                <th scope="col">Specialized subject</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Phone no.</th>
+                                <th scope="col">Edit</th>
+                                <th scope="col">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for f in faculty %}
+                             <tr>
+                                <td scope="row"></td>
+                                <th scope="row">{{f.name}}</th>
+                                <td>{{f.edu_level}}</td>
+                                <td>{{f.spec_sub}}</td>
+                                <td>{{f.email}}</td>
+                                <td>{{f.phone}}</td>
+                               
+                                <td><a href="faculty/{{f.id}}"><i class="fas fa-edit"></i></a></td>
+                                <td>
+                                    <a href="#" data-toggle="modal" data-target="#viewmodel2"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                    <div class="modal fade top" id="viewmodel2" tabindex="-1" role="dialog" aria-labelledby="myModalLabe2" aria-hidden="true" data-backdrop="true">
+                                        <div class="modal-dialog modal-frame modal-top modal-notify modal-info" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-body">
+                                                    <div class="row d-flex justify-content-center align-items-center">
+                                                       <h4> Deleting Faculty {{f.name}}</h4>
+                                                        <p>Clicking on OK will perminantally delete this event from the database </p>
+                                                        <p>Are you sure ?</p>
+                                                        <hr>
+                                                        <a href="admin_delete/{{f.id}}/faculty"><button class="btn btn-success" style="font-size: 15px;">Yes</button></a>
+                                                        <button href="#" class="btn btn-danger" data-dismiss="modal" style="font-size: 15px; margin-left: 5px;">Cancel</button>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
 {% endblock %}
 {% block scripts %}
 <script>
-    $('#id_edu_level').children('option:selected').text('Select Education level')
-    $('#id_gender').children('option:selected').text('Select gender')
+    $('#id_edu_level').children('option:selected').text('Select Education level').attr('disabled','disabled')
+    $('#id_gender').children('option:selected').text('Select gender').attr('disabled','disabled')
     $('textarea').css({height:'62px'})
 </script>
 {% endblock scripts %}

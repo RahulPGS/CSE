@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}| CSE Students |{% endblock title %}
-{% block content %}  
 {% block people_class %} active{% endblock people_class %}
+{% block content %}  
   
 <!-- 
 <section class="studenets">
@@ -29,32 +29,20 @@
 </div>
  -->
 
-<section class="studenets container">
-  <h2 align="center" data-aos="fade-up" style="margin-top: 70px;">List of Students</h2>
- <table class="table">
-  <thead class="thead-info">
-    <tr>
-      <th scope="col"></th>
-      <th scope="col">B.Tech</th>
-      <th scope="col"></th>
-      <th scope="col"></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row"></th>
-      <td><button class="btn btn-primary btn-lg" >B.Tech-2016 </button></td>
-      <td></td>
-      <td><button class="btn btn-primary btn-lg" >B.Tech-2017 </button></td>
-    </tr>
-    <tr>
-      <th scope="row"></th>
-      <td><button class="btn btn-primary btn-lg" >B.Tech-2018 </button></td>
-      <td></td>
-      <td><button class="btn btn-primary btn-lg" >B.Tech-2019 </button></td>
-    </tr>
-  </tbody>
-</table>
+<section class="studenets" align='center'>
+  <h2 align="center" data-aos="fade-up" style="margin: 30px 0 50px 0;">List of Students</h2>
+  {% for b in batches %}
+  <div class='cardwshadow'>
+  <a href="{{b.batch_link}}" target='_blank'>
+    <div>
+      <i class="fa fa-external-link" aria-hidden="true"></i> 
+    </div>
+    <div class='text-content'>
+    <p class='title mr-auto'>{{b.batch_year}} Batch</p>
+    </div>
+  </a>
+  </div>
+{% endfor %}
 
 </section>
  {% endblock %}

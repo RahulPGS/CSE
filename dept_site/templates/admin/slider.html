@@ -1,0 +1,72 @@
+{% extends 'admin/dash.html' %}
+{% load widget_tweaks %}
+{% block content %}
+<div class="col-md-10 mt-4 container">
+                        <h4 class="pb-4">Slider Details</h4>
+                        <div class="card">
+                            <div class="card-body">
+                                <form method='post' action='{% if id %}/admin/slider/{{id}} {% else %}slider{% endif %}' enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    {{ form.media }}
+                                    <div class="form-group">
+                                        {% render_field  form.title class="form-control" id="time" aria-describedby="emailHelp" placeholder="Enter Title of Slider" %}
+                                    </div>
+                                    <div class="form-group">
+                                        {% render_field  form.description class="form-control" id="description" rows="5" placeholder="Description of Slider Image (1-2 lines)" %}
+                                    </div>
+                                    <div class="form-row">
+                                        <label class="form-label" for="customFile">Upload Image</label>
+                                        {% render_field  form.image class="form-control" id="customFile" %}
+                                    </div>
+                                    <button type="submit" class="btn btn-primary" style="margin-top: 20px;">Submit</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--   Table for Data Displaying -->
+                <div class="container table-responsive col-md-10">
+                  <h4 class="pb-4">Slider Description</h4>
+                    <table class="table table-bordered table-hover modal_all" style="text-align: center;">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">S.No</th>
+                                <th scope="col">Title</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">View Image</th>
+                                <th scope="col">Edit</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                        {% for s in slides %}
+                            <tr>
+                                <td scope="row"></td>
+                                <td>{{s.title}}</td>
+                                <td>{{s.description}}</td>
+                                <td>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#viewmodel{{s.id}}">View</button>
+                                    <div class="modal fade top" id="viewmodel{{s.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="true">
+                                        <div class="modal-dialog modal-frame modal-top modal-notify modal-info" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-body">
+                                                    <div class="row d-flex justify-content-center align-items-center">
+                                                        <img src="{{s.image.url}}" height="300px" width="auto">
+                                                        <a type="button" class="btn btn-outline-primary waves-effect" data-dismiss="modal">Close</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><a href="slider/{{s.id}}"><i class="fas fa-edit"></i></a></td>
+                            </tr>
+                        {% endfor %}
+                            
+                            
+                        </tbody>
+                    </table>
+                </div>
+{% endblock %}

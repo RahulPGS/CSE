@@ -1,4 +1,4 @@
-  
+
 body {
     position: relative;
     overflow-x:hidden;
@@ -15,18 +15,7 @@ body,
 html { height: 100%;}
 
 
-Button,button{
-    float: right;
-    margin-top: 10%;
-    border: none;
-    border-radius: 1.5rem;
-    padding: 2%;
-    background: #0062cc;
-    color: #fff;
-    font-weight: 600;
-    width: 50%;
-    cursor: pointer;
-  }
+
 
 
 /*---------------------------------
@@ -36,6 +25,7 @@ sidebar
 #sidebar-wrapper {
     z-index: 1000;
     height: 100%;
+    position: fixed;
 	width:0px;
 	left: -50px;
     overflow-y: auto;
@@ -153,8 +143,8 @@ sidebar
     color:white!important;
 	text-transform:capitalize;
     text-decoration: none;
-    padding:6px 10px; 
-    transition:0.4s ease;	
+    padding:6px 10px;
+    transition:0.4s ease;
 }
 
 .navbar-nav > li > a i:before{
@@ -192,10 +182,10 @@ sidebar
   margin-left:270px;
   transition: all 0.5s ease;
  }
- 
+
  @media only screen and (min-width:992px){
  .toggled#page-content-wrapper{
-    width:calc(100% - 270px); 
+    width:calc(100% - 270px);
 	}
  }
 
@@ -525,8 +515,68 @@ footer.footer ul {
     color: #6c757d!important;
 	font-size:14px;
 }
- 
+
 
 /*---------------------------------
 footer
 ----------------------*/
+
+
+
+
+
+/*---------------------------------
+Gallery
+----------------------*/
+
+
+#gallery .img-wraps {
+    position: relative;
+    display: inline-block;
+    padding: 20px;
+    font-size: 0;
+}
+
+#gallery p{
+  font-size: 15px;
+  color: black;
+}
+
+
+#gallery .img-responsive{
+  height: 250px;
+  width: 250px;
+}
+#gallery .img-wraps .closes {
+    position: absolute;
+    top: 5px;
+    right: 8px;
+    z-index: 100;
+    background-color: #FFF;
+    padding: 4px 3px;
+     
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+    
+    text-align: center;
+    font-size: 22px;
+    line-height: 10px;
+    border-radius: 50%;
+    border:1px solid red;
+}
+#gallery .img-wraps:hover .closes {
+    opacity: 1;
+}
+.facbutton{
+    float: right;
+    margin-top: 10%;
+    border: none;
+    border-radius: 1.5rem;
+    padding: 2%;
+    background: #0062cc;
+    color: #fff;
+    font-weight: 600;
+    width: 50%;
+    cursor: pointer;
+  }

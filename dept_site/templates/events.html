@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}| CSE Events and talks |{% endblock title %}
-{% block content %}
 {% block highlights_class %}active{% endblock  %}
+
+{% block content %}
 
 
 <section class="studenets">
@@ -17,59 +18,20 @@
       <th scope="col">Resource Person</th>
       <th scope="col">Convenor</th>
       <th scope="col">Co-ordinator's</th>
+      <th scope="col">Details</th>
     </tr>
   </thead>
   <tbody>
+  {% for e in events %}
     <tr>
-      <th scope="row">1</th>
-      <td>FDP-on AI and ML Real time applications (10/02/2020-15/02/2020) <br> (Strength=42) <br> Patron: Dr.G. Bhanu Kiran </td>
-      <td>E & ICT Acadey NIT Warangal </td>
-      <td> Satish Kumar CH</td>
-      <td> K.Vijay Bhaskar <br> Dr.N.CH. Ramesh Babu</td>
+      <td scope="row"></td>
+      <td>{{e.name}}</td>
+      <td>{{e.res_person}}</td>
+      <td>{{e.covinor}}</td>
+      <td>{{e.coordinators}}</td>
+      <td>{{e.description}}</td>
     </tr>
-
-    <tr>
-      <th scope="row">2</th>
-      <td>APSSDC-AWS<br>(10/02/2020-15/02/2020) <br> (Strength=352, 6days) <br> Patron: Dr.G. Bhanu Kiran </td>
-      <td>APSSDC</td>
-      <td> Satish Kumar CH</td>
-      <td> S.Seshu Kumar</td>
-    </tr>
-
-    <tr>
-      <th scope="row">3</th>
-      <td>APSSDC-Android Development<br>(10/02/2020-15/02/2020) <br> (Strength=352, 6days) <br> Patron: Dr.G. Bhanu Kiran </td>
-      <td>APSSDC</td>
-      <td> Satish Kumar CH</td>
-      <td> N.L. Prasanna Devi</td>
-    </tr>
-
-    <tr>
-      <th scope="row">4</th>
-      <td>APSSDC-Advanced Python<br>(10/02/2020-15/02/2020) <br> (Strength=352, 6days) <br> Patron: Dr.G. Bhanu Kiran </td>
-      <td>APSSDC</td>
-      <td> Satish Kumar CH</td>
-      <td> T. Anil Kumar</td>
-    </tr>
-
-    <tr>
-      <th scope="row">5</th>
-      <td>Workshop-Advanced Computer Networks <br> (27/12/2019 - 28/12/1019) (Strength=352, 2days) </td>
-      <td>Dr. Rahul Jaswanth Pandhya <br> (Assistant Professor NIT Warangal) </td>
-      <td> Satish Kumar CH</td>
-      <td> M. Roopa</td>
-    </tr>
-
-    <tr>
-      <th scope="row">6</th>
-      <td>Workshop on Robotics and IOT (12/11/2019-13/11/2019) <br> (Strength=352,2 days) </td>
-      <td>Dr. Ravi Kumar Jatoth</td>
-      <td> Satish Kumar CH</td>
-      <td> S.Sateesh Kumar</td>
-    </tr>
-
-  
-
+  {% endfor %}
   </tbody>
 </table>
 </div>
@@ -78,3 +40,10 @@
 
 
   {% endblock %}
+  {% block scripts %}
+  <script>
+  $('table').find('tr').not(':eq(0)').each(function(i){
+        $(this).children('td:eq(0)').text(i+1).css('font-weight', 'bold');
+    });
+  </script>
+  {% endblock scripts %}

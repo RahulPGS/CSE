@@ -37,13 +37,17 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
 
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
     <!-- Google Fonts -->
     <link
       href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
       rel="stylesheet"
     />
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Patua+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Graduate&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Monoton&display=swap" rel="stylesheet">
+
     <!-- Vendor CSS Files -->
     <link
       href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}"
@@ -78,11 +82,15 @@
 
   <body>
     <!-- ======= Header ======= -->
-    <header id="header" class="fixed-top">
+    <header id="header" class='rgukt wfull'><h1 align='center' class='rgukt'><a href='http://rguktsklm.ac.in/'>Rajiv Gandhi University of knowledge Technologies Srikakulam<br></a></h1></header>
+    <header id="header" class='rgukt w850'><h1 class='rgukt' align='center'><a href='http://rguktsklm.ac.in/'>Rajiv Gandhi University of knowledge Technologies SKLM<br></a></h1></header>
+    <header id="header" class='rgukt w600'><h1 class='rgukt' align='center'><a href='http://rguktsklm.ac.in/'>RGUKT Srikakulam<br></a></h1></header>
+    <header id="header" class="rgukt w450"><h1 class='rgukt' align='center'><a href='http://rguktsklm.ac.in/'>RGUKT SKLM<br></a></h1></header>
+    <header id="header" class="sticky-top">
       <div class="container-fluid">
         <div class="row justify-content-center">
           <div class="col-xl-9 d-flex align-items-center">
-            <h1 class="logo mr-auto"><a href="/">CSE</a></h1>
+            <h1 class="logo mr-auto cse"><a href="/">CSE</a></h1>
             <!-- <a href="index.html" class="logo mr-auto"><img src="{% static 'img/logo.jpg" alt="" class="img-fluid"></a> -->
 
             <nav class="nav-menu d-none d-lg-block">
@@ -144,14 +152,14 @@
                 <li class="drop-down {% block highlights_class %}{% endblock%}">
                   <a href="">Highlights</a>
                   <ul>
-                    <li><a href="awards_honours">Awards & Honours</a></li>
-                    <li><a href="events_talks">Events and Talks</a></li>
-                    <li><a href="events_talks">Gallery</a></li>
+                    <li><a href="awards_honours">Awards and Honours</a></li>
+                    <li><a href="events">Events and Workshops</a></li>
+                    <li><a href="gallery">Gallery</a></li>
                   </ul>
                 </li>
                 <li class=" {% block news_class %}{% endblock%}">
-                  <a href="news_events"
-                    >News and Events</a
+                  <a href="news"
+                    >News</a
                   >
                 </li>
                 <li class="drop-down {% block about_class %}{% endblock%}">
@@ -165,7 +173,9 @@
                     <li><a href="web_team">WebTeam</a></li>
                   </ul>
                 </li>
-                <li style="color:white; font-family:'Patua One', cursive"><a href='/admin'>Admin</a></li>
+                {% if request.user.username == 'admincse' %}
+                <li style="color:white; font-family:'Patua One', cursive"><a href='/admin/dashboard'>Admin</a></li>
+                {% endif %}
               </ul>
             </nav>
             <!-- .nav-menu -->
