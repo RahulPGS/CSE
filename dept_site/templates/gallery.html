@@ -25,8 +25,9 @@
         </div>
         
         <div class="row gy-4 portfolio-container" data-aos="fade-up" data-aos-delay="200">
+        
         {% for g in gallery %}
-          <div class="col-lg-4 col-md-6 portfolio-item {% if g.category == 'Workshops' %} filter-app {% elif g.category == 'Talks'%}filter-card {% else %} filter-web{% endif %}">
+          <div class="col-lg-4 col-md-6 portfolio-item {% if g.category == 'Workshops' %} filter-app {% elif g.category == 'Talks'%} filter-card {% else %} filter-web{% endif %}">
             <div class="portfolio-wrap">
               <img src="{{g.image.url}}" class="img-fluid" alt="">
               <div class="portfolio-info">
@@ -37,103 +38,6 @@
             </div>
 
         {% endfor %}
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <div class="portfolio-wrap">
-              <img src="{% static 'img/gallery/c1.jpeg' %}" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Inauguration of CSE</h4>
-                
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-            <div class="portfolio-wrap">
-              <img src="{% static 'img/gallery/c2.jpeg' %}" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Launch Of CSE </h4>
-                
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <div class="portfolio-wrap">
-              <img src="{% static 'img/gallery/s1.jpg' %}" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Computer Networks Workshop</h4>
-                
-                
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-            <div class="portfolio-wrap">
-              <img src="{% static 'img/gallery/s2.jpg' %}" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Computer Networks Workshop</h4>
-                
-               
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-            <div class="portfolio-wrap">
-              <img src="{% static 'img/gallery/s5.jpg' %}" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Robotics Workshop</h4>
-                
-                
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <div class="portfolio-wrap">
-              <img src="{% static 'img/gallery/s6.jpg' %}" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Robotics Workshop</h4>
-                
-                
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-            <div class="portfolio-wrap">
-              <img src="{% static 'img/gallery/s3.png' %}" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Civil Services/h4>
-                
-                
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-card">
-            <div class="portfolio-wrap">
-              <img src="{% static 'img/gallery/s4.png' %}" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Gate Exam</h4>
-                
-                
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 portfolio-item filter-web">
-            <div class="portfolio-wrap">
-              <img src="{% static 'img/gallery/s7.jpg' %}" class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4>Data Analytics</h4>
-                
-               
-              </div>
-            </div>
-          </div>
-
         </div>
 
       </div>

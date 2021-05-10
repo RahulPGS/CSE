@@ -15,7 +15,7 @@ def main(res):
     time_table = Timetablenacedemics.objects.get(is_time=True)
     academic_cal = Timetablenacedemics.objects.get(is_time=False)
     print(announcements, updates, placements)
-    return render(res, 'index.html', {'announcements':announcements, 'updates':updates, 'placements': placements, 'slides': Slide.objects.all().order_by('-id'), 'time_table': time_table, 'academic_cal': academic_cal})
+    return render(res, 'index.html', {'announcements':announcements, 'updates':updates, 'placements': placements, 'slides': Slide.objects.all(), 'time_table': time_table, 'academic_cal': academic_cal})
 
 
 @login_required

@@ -1,16 +1,18 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}| CSE Courses |{% endblock title %}
-{% block content %}
 {% block academics_class %} active {% endblock academics_class %}
+{% block content %}
 <div id="main">
   <!-- Post -->
   <article class="shade-two" style="margin-top: 70px;">
-    <div class="container">
+    <div class="container" >
       <header>
         <h2 class="text-center" data-aos="fade-up"> COURSES</h2>
         <p></p>
-      </header><table class="table">
+      </header>
+      <div style='overflow:auto'>
+      <table class="table">
         <thead data-aos="fade-up">
       <tr>
         <th>CS1101</th>
@@ -357,6 +359,7 @@ in the networks.</p></td>
 
 
 </table>
+</div>
 </div>
   </article>
 </div>                                       
