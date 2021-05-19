@@ -20,7 +20,7 @@
             <div class="member d-flex align-items-start" data-aos="zoom-in" data-aos-delay="100">
               <div class="pic">
               {% if i.image %}
-                <img src="{{i.image.url}}" class="img-fluid" alt="">
+                <img src="{{i.image.url}}" class="img-fluid" alt="" style="object-fit:cover;height:170px;width=170px">
               {% else %}
                 <img src="{% static 'img/web.jpg' %}" class="img-fluid" alt="">
               {% endif %}

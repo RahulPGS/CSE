@@ -62,7 +62,7 @@ urlpatterns = [
     path('admin/awards_honours/<int:id>', views.admin_awards, name='admin_awards'),
 
     path('admin/gallery', views.admin_gallery, name='admin_gallery'),
-    path('admin/messages', views.messages, name='messages'),
+    path('admin/messages', views.message, name='messages'),
 
     path('admin/news', views.admin_news, name='admin_news'),
     path('admin/news/<int:id>', views.admin_news, name='admin_news'),

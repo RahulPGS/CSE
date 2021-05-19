@@ -12,6 +12,7 @@ django-widget-tweaks = "*"
 whitenoise = "*"
 gunicorn = "*"
 django-heroku = "*"
+django-cleanup = "*"
 
 [requires]
 python_version = "3.8"

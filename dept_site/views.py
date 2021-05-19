@@ -362,8 +362,8 @@ def placements(res):
 def collaborations(res):
     return render(res, 'collaborations.html', {'collaborations': Collaboration.objects.all()})
 
-def messages(res):
-    return render(res, 'admin/messages.html', {'messages': Message.objects.all()})
+def message(res):
+    return render(res, 'admin/messages.html', {'message': Message.objects.all()})
 
 def admin_dashboard(res):
     return render(res, 'admin/dash_new.html', {'p_pendings': Publication.objects.filter(approved=False), 'a_pendings': Award.objects.filter(approved=False), 'f_pendings': Faculty.objects.filter(approved=False), 's_pendings': Staff.objects.filter(approved=False), 'pl_pendings' : Placement.objects.filter(approved=False), 'in_pendings' : Internship.objects.filter(approved=False)})

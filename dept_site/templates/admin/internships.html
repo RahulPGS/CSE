@@ -60,7 +60,7 @@
                     {% render_field form.call_letter class="form-control" id="customFile" %}                 
                   </div>
                   <div class="form-row">
-                    <label class="form-label" for="customFile">Upload Recent image</label>
+                    <label class="form-label" for="customFile">Upload latest photo</label>
                     {% render_field form.image class="form-control" id="customFile" %}
                 </div>
                 </form>
@@ -106,7 +106,7 @@
                                                 <div class="modal-body">
                                                     <div class="row d-flex justify-content-center align-items-center">
                                                        <h4> Deleting Placement {{p.name}}</h4>
-                                                        <p>Clicking on OK will perminantally delete this internship from the database </p>
+                                                        <p>Clicking on OK will perminantally delete this internship and all the files associated with it from the database </p>
                                                         <p>Are you sure ?</p>
                                                         <hr>
                                                         <a href="admin_delete/{{p.id}}/internship"><button class="btn btn-success" style="font-size: 15px;">Yes</button></a>

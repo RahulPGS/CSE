@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '#1avy6*qe70%fxa!7xzf3xc_phc9^b(lccgg#x=y9_+*7^p2^s'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*', 'arm-cse.herokuapp.com']
 
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'dept_site',
     'django.contrib.staticfiles',
     'widget_tweaks',
+    'django_cleanup.apps.CleanupConfig'
 ]
 
 MIDDLEWARE = [

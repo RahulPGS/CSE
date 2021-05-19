@@ -26,7 +26,7 @@
                 </div>
 
                     <div class="from-group">
-                        <label class="form-label">Upload recent image</label>
+                        <label class="form-label">Upload latest photo</label>
                         {% render_field form.image class="form-control"%}
                     </div>
 
@@ -73,7 +73,7 @@
                                                 <div class="modal-body">
                                                     <div class="row d-flex justify-content-center align-items-center">
                                                        <h4> Deleting Staff {{s.name}}</h4>
-                                                        <p>Clicking on OK will perminantally delete this event from the database </p>
+                                                        <p>Clicking on OK will perminantally delete this staff object and all the files associated with it from the database </p>
                                                         <p>Are you sure ?</p>
                                                         <hr>
                                                         <a href="admin_delete/{{s.id}}/staff"><button class="btn btn-success" style="font-size: 15px;">Yes</button></a>
