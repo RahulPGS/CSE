@@ -8,7 +8,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
+    />
 
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
   <title>| CSE Admin |</title>
@@ -39,7 +55,7 @@
       <!-- Sidebar -->
       <nav class="fixed-top align-top" id="sidebar-wrapper" role="navigation">
         <div class="simplebar-content" style="padding: 0px;">
-          <a class="sidebar-brand" href="index.html">
+          <a class="sidebar-brand" href="/">
             <span class="align-middle">CSE Admin</span>
           </a>
 
@@ -164,6 +180,35 @@
               </div>
             </li>
 
+            <li class="has-sub">
+              <a class="nav-link collapsed text-left" href="#collapseExample5" role="button" data-toggle="collapse">
+                <i class="flaticon-user"></i> Jobs
+              </a>
+
+              <div class="collapse menu mega-dropdown" id="collapseExample5">
+                <div class="dropmenu" aria-labelledby="navbarDropdown">
+                  <div class="container-fluid ">
+                    <div class="row">
+                      <div class="col-lg-12 px-2">
+                        <div class="submenu-box">
+                          <ul class="list-unstyled m-0">
+                            <li><a href="internships">Internships</a></li>
+                            <li><a href="placements">Placements</a></li>
+                          </ul>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            <li class="">
+              <a class="nav-link text-left" role="button" href="collaborations">
+                <i class="flaticon-bar-chart-1"></i> Collaborations
+              </a>
+            </li>
 
             <li class="">
               <a class="nav-link text-left" role="button" href="news">
@@ -240,6 +285,39 @@
         </footer>
     <!-- /#page-content-wrapper -->
 
+{% for k,v in form.errors.items %}
+  <div class="toast" data-autohide="false" style="position: fixed; bottom:30px; right: 30px; z-index:1000 float:right">
+    <div class="toast-header">
+      <i class="fas fa-comment-alt" style="color:#ff0033 "></i>&nbsp
+      <strong class="mr-auto">Error!!</strong>
+      <small>Now</small>
+      <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="toast-body">
+      {{k}} : {{v}}
+    </div>
+  </div>
+{% endfor %}
+
+
+{% for m in messages %}
+  <div class="toast" data-autohide="false" style="position: fixed; bottom:30px; right: 30px; z-index:1000 float:right">
+    <div class="toast-header">
+      <i class="fas fa-comment-alt" style="color:#3474eb "></i>&nbsp
+      <strong class="mr-auto">{{m.tags}}!!</strong>
+      <small>Now</small>
+      <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="toast-body">
+      {{ m }}
+    </div>
+  </div>
+{% endfor %}
+
   </div>
   <!-- /#wrapper -->
 
@@ -249,16 +327,24 @@
 
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-
   <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    {% comment %} <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script> {% endcomment %}
+
+  <!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>-->
+  
 
 
   <script>
   $('document').ready(function(){
     if( $(window).width() > 1000)$('#bar').click();
+    console.log('toast');
+    $('.toast').toast('show');
   })
     $('#bar').click(function() {
       $(this).toggleClass('open');

@@ -67,6 +67,153 @@
 <!--   Table for Admin Acceptance -->
 
 
+
+<div class="container-fluid table-responsive" > 
+<div class="d-sm-flex align-items-center justify-content-between mb-4"><h1 class="h3 mb-0 text-gray-800">New Internships</h1></div>
+
+<table class="table table-bordered table-hover modal_all" style="text-align: center;">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">S.No</th>
+      <th scope="col">Name</th>
+      <th scope="col">ID No</th>
+      <th scope="col">Company name</th>
+      <th scope="col">Start date</th>
+      <th scope="col">Duration(months)</th>
+      <th scope="col">View</th>
+      <th scope="col">Accept&nbsp;<i class="fa fa-check" aria-hidden="true"></i></th>
+      <th scope="col">Decline&nbsp;<i class="fa fa-ban" aria-hidden="true"></i></th>
+    </tr>
+  </thead>
+  <tbody>
+
+    {% for i in in_pendings %}
+    <tr>
+      <td scope="row"></td>
+      <td>{{i.full_name}}</td>
+      <td>{{i.id_no}}</td>
+      <td>{{i.company_name}}</td>
+      <td>{{i.start_date|date:"M y"}}</td>
+      <td>{{i.duration}}</td>
+      <td>
+          <a href="#" data-toggle="modal" data-target="#view{{i.id}}"><i class="fa fa-eye"></i></a>
+          <div class="modal fade top" id="view{{i.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabe2" aria-hidden="true" data-backdrop="true">
+              <div class="modal-dialog modal-frame modal-top modal-notify modal-info" role="document">
+                  <div class="modal-content">
+                      <div class="modal-body">
+                          <div class="row d-flex justify-content-center align-items-center" style="z-index: 1000">
+                              <h4> {{i.full_name}} ({{i.id_no}})</h4>
+                              <p>{{i.request}}</p>
+                              <a href="{{i.call_letter.url}}" target="_blank"><button class="btn btn-success" style="font-size: 15px;">View Call letter</button></a>
+                              <button href="#" class="btn btn-danger" data-dismiss="modal" style="font-size: 15px; margin-left: 5px;">Cancel</button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </td>
+      <td><a href="accept/{{i.id}}/internship"><button class="btn btn-success">Accept</button></a></td>
+      <td>
+          <a href="#" data-toggle="modal" data-target="#viewmodel{{i.id}}"><button class="btn btn-danger">Decline</button></a>
+          <div class="modal fade top" id="viewmodel{{i.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabe2" aria-hidden="true" data-backdrop="true">
+              <div class="modal-dialog modal-frame modal-top modal-notify modal-info" role="document">
+                  <div class="modal-content">
+                      <div class="modal-body">
+                          <div class="row d-flex justify-content-center align-items-center" style="z-index: 1000">
+                              <h4> Rejecting Internship of {{i.id_no}}</h4>
+                              <p>Clicking on OK will perminantally delete the internship entry from the database </p>
+                              <p>Are you sure ?</p>
+                              <hr>
+                              <a href="admin_delete/{{i.id}}/internship"><button class="btn btn-success" style="font-size: 15px;">Yes</button></a>
+                              <button href="#" class="btn btn-danger" data-dismiss="modal" style="font-size: 15px; margin-left: 5px;">Cancel</button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </td>
+    </tr>
+    {% endfor %}
+
+    
+  </tbody>
+</table>
+</div>
+
+<div class="container-fluid table-responsive" > 
+<div class="d-sm-flex align-items-center justify-content-between mb-4"><h1 class="h3 mb-0 text-gray-800">New Placements</h1></div>
+
+<table class="table table-bordered table-hover modal_all" style="text-align: center;">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">S.No</th>
+      <th scope="col">Name</th>
+      <th scope="col">ID No</th>
+      <th scope="col">Company name</th>
+      <th scope="col">Start date</th>
+      <th scope="col">Package(LPA)</th>
+      <th scope="col">View</th>
+      <th scope="col">Accept&nbsp;<i class="fa fa-check" aria-hidden="true"></i></th>
+      <th scope="col">Decline&nbsp;<i class="fa fa-ban" aria-hidden="true"></i></th>
+    </tr>
+  </thead>
+  <tbody>
+
+    {% for i in pl_pendings %}
+    <tr>
+      <td scope="row"></td>
+      <td>{{i.full_name}}</td>
+      <td>{{i.id_no}}</td>
+      <td>{{i.company_name}}</td>
+      <td>{{i.start_date|date:"M y"}}</td>
+      <td>{{i.initial_package}}</td>
+      <td>
+          <a href="#" data-toggle="modal" data-target="#view{{i.id}}"><i class="fa fa-eye"></i></a>
+          <div class="modal fade top" id="view{{i.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabe2" aria-hidden="true" data-backdrop="true">
+              <div class="modal-dialog modal-frame modal-top modal-notify modal-info" role="document">
+                  <div class="modal-content">
+                      <div class="modal-body">
+                          <div class="row d-flex justify-content-center align-items-center" style="z-index: 1000">
+                              <h4> {{i.full_name}} ({{i.id_no}})</h4>
+                              <p>{{i.request}}</p>
+                              <a href="{{i.call_letter.url}}" target="_blank"><button class="btn btn-success" style="font-size: 15px;">View Call letter</button></a>
+                              <button href="#" class="btn btn-danger" data-dismiss="modal" style="font-size: 15px; margin-left: 5px;">Cancel</button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </td>
+      <td><a href="accept/{{i.id}}/placement"><button class="btn btn-success">Accept</button></a></td>
+      <td>
+          <a href="#" data-toggle="modal" data-target="#viewmodel{{i.id}}"><button class="btn btn-danger">Decline</button></a>
+          <div class="modal fade top" id="viewmodel{{i.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabe2" aria-hidden="true" data-backdrop="true">
+              <div class="modal-dialog modal-frame modal-top modal-notify modal-info" role="document">
+                  <div class="modal-content">
+                      <div class="modal-body">
+                          <div class="row d-flex justify-content-center align-items-center" style="z-index: 1000">
+                              <h4> Rejecting Internship of {{i.id_no}}</h4>
+                              <p>Clicking on OK will perminantally delete the internship entry from the database </p>
+                              <p>Are you sure ?</p>
+                              <hr>
+                              <a href="admin_delete/{{i.id}}/placement"><button class="btn btn-success" style="font-size: 15px;">Yes</button></a>
+                              <button href="#" class="btn btn-danger" data-dismiss="modal" style="font-size: 15px; margin-left: 5px;">Cancel</button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </td>
+    </tr>
+    {% endfor %}
+
+    
+  </tbody>
+</table>
+</div>
+
+
+
 <div class="container-fluid table-responsive" > 
 <div class="d-sm-flex align-items-center justify-content-between mb-4"><h1 class="h3 mb-0 text-gray-800">New Faculty</h1></div>
 
@@ -97,6 +244,62 @@
       <td>
           <a href="#" data-toggle="modal" data-target="#viewmodel{{s.id}}"><button class="btn btn-danger">Decline</button></a>
           <div class="modal fade top" id="viewmodel{{s.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabe2" aria-hidden="true" data-backdrop="true">
+              <div class="modal-dialog modal-frame modal-top modal-notify modal-info" role="document">
+                  <div class="modal-content">
+                      <div class="modal-body">
+                          <div class="row d-flex justify-content-center align-items-center" style="z-index: 1000">
+                              <h4> Rejecting Faculty {{f.name}}</h4>
+                              <p>Clicking on OK will perminantally delete the faculty entry from the database </p>
+                              <p>Are you sure ?</p>
+                              <hr>
+                              <a href="admin_delete/{{f.id}}/faculty"><button class="btn btn-success" style="font-size: 15px;">Yes</button></a>
+                              <button href="#" class="btn btn-danger" data-dismiss="modal" style="font-size: 15px; margin-left: 5px;">Cancel</button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </td>
+    </tr>
+    {% endfor %}
+
+    
+  </tbody>
+</table>
+</div>
+
+
+
+<div class="container-fluid table-responsive" > 
+<div class="d-sm-flex align-items-center justify-content-between mb-4"><h1 class="h3 mb-0 text-gray-800">New Faculty</h1></div>
+
+<table class="table table-bordered table-hover modal_all" style="text-align: center;">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">S.No</th>
+      <th scope="col">Name</th>
+      <th scope="col">Specialized subject</th>
+      <th scope="col">Education level</th>
+      <th scope="col">Email</th>
+      <th scope="col">Phn no.</th>
+      <th scope="col">Accept&nbsp;<i class="fa fa-check" aria-hidden="true"></i></th>
+      <th scope="col">Decline&nbsp;<i class="fa fa-ban" aria-hidden="true"></i></th>
+    </tr>
+  </thead>
+  <tbody>
+
+    {% for f in f_pendings %}
+    <tr>
+      <td scope="row"></td>
+      <td>{{f.name}}</td>
+      <td>{{f.spec_sub}}</td>
+      <td>{{f.edu_level}}</td>
+      <td>{{f.email}}</td>
+      <td>{{f.phone}}</td>
+      <td><a href="accept/{{f.id}}/faculty"><button class="btn btn-success">Accept</button></a></td>
+      <td>
+          <a href="#" data-toggle="modal" data-target="#viewmodel{{f.id}}"><button class="btn btn-danger">Decline</button></a>
+          <div class="modal fade top" id="viewmodel{{f.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabe2" aria-hidden="true" data-backdrop="true">
               <div class="modal-dialog modal-frame modal-top modal-notify modal-info" role="document">
                   <div class="modal-content">
                       <div class="modal-body">

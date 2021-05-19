@@ -5,39 +5,47 @@
 
 {% block content %} 
 
+ <section id="portfolio" class="portfolio">
 
-<section class="studenets">
-  <h2 align="center" data-aos="fade-up" style="margin-top: 30px;">Latest News</h2>
-  <div class="container">
-    <article class="shade-two" style="margin-top: 40px;">
-    <div class="container">
-      <header>
-        <p></p>
-      </header>
-      <table class="table">
-      {% for n in news %}
-      <thead data-aos="fade-up" id={{n.id}}>
-      <tr>
-        <th>{{n.category}}</th>
-        <th>{{n.title}}</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td style="width: 120px;">
-          <ul>
-          </ul>
-        </td>
-        <td>{{n.description}}</td>
-      </tr>
-    </tbody>
-      {% endfor %}
-      
-  </table>
-</div>
-</article>
-  </div>
-</section>
+      <div class="container" data-aos="fade-up">
 
+        <header class="section-header" style="text-align: center; margin-top: 50px;">
+          <h2>Lates News </h2>
+          <p></p>
+        </header>
+
+        <div class="row" data-aos="fade-up" data-aos-delay="100">
+          <div class="col-lg-12 d-flex justify-content-center">
+            <ul id="portfolio-flters">
+              <li data-filter="*" class="filter-active">All</li>
+              <li data-filter=".filter-news" id="#workshops">Announcements & News</li>
+              <li data-filter=".filter-updates">Updates</li>
+              <li data-filter=".filter-pd">Placements Drives</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="row gy-4 portfolio-container" data-aos="fade-up" data-aos-delay="200">
+
+          {% for n in news %}
+          <div class="col-lg-12 col-md-12 portfolio-item {% if n.category == 'Announcement' %}filter-news {% elif n.category == 'Update'%}filter-updates {% else %}filter-pd{% endif %}" id="{{n.id}}">
+            <div class="col-md-12">
+              <div class="alert alert-info  fade show" role="alert">
+                <p>{{n.modified|date:"d M Y"}}</p>
+                <strong>{{n.title}}</strong> <p> {{n.description}}</p>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+
+
+        </div>
+
+
+        
+        
+      </div>
+
+    </section>
 
 {% endblock %}

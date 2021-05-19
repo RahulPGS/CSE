@@ -19,6 +19,10 @@ urlpatterns = [
     path('staff', views.staff, name='staff'),
     path('news', views.news, name='news'),
     path('events', views.events, name='events'),
+    path('internships', views.internships, name='internships'),
+    path('placements', views.placements, name='placements'),
+    path('collaborations', views.collaborations, name='collaborations'),
+
 
     #static pages
     path('web_team', TemplateView.as_view(
@@ -58,6 +62,7 @@ urlpatterns = [
     path('admin/awards_honours/<int:id>', views.admin_awards, name='admin_awards'),
 
     path('admin/gallery', views.admin_gallery, name='admin_gallery'),
+    path('admin/messages', views.messages, name='messages'),
 
     path('admin/news', views.admin_news, name='admin_news'),
     path('admin/news/<int:id>', views.admin_news, name='admin_news'),
@@ -65,10 +70,21 @@ urlpatterns = [
     path('admin/slider', views.admin_slider, name='admin_slider'),
     path('admin/slider/<int:id>', views.admin_slider, name='admin_slider'),
 
+    path('admin/placements', views.admin_placements, name='admin_placements'),
+    path('admin/placements/<int:id>', views.admin_placements, name='admin_placements'),
+
+    path('admin/internships', views.admin_internships, name='admin_internships'),
+    path('admin/internships/<int:id>', views.admin_internships, name='admin_internships'),
+
+    path('admin/collaborations', views.admin_collaborations, name='admin_collaborations'),
+    path('admin/collaborations/<int:id>', views.admin_collaborations, name='admin_collaborations'),
+
     path('faculty_form', views.new_faculty_form, name='faculty_form'),
     path('staff_form', views.new_staff_form, name='staff_form'),
     path('publication_form', views.new_publication_form, name='publication_form'),
     path('award_form', views.new_awards_form, name='award_form'),
+    path('placement_form', views.new_placement_form, name='placement_form'),
+    path('internship_form', views.new_internship_form, name='internship_form'),
 
     path('admin/accept/<int:id>/<str:model>', views.admin_accept, name='admin_accept'),
     path('admin/admin_delete/<int:id>/<str:model>', views.admin_delete, name='admin_delete'),

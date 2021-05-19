@@ -60,3 +60,23 @@ class batch_form(forms.ModelForm):
     class Meta:
         model = models.Batch
         exclude = {}
+
+class placement_form(forms.ModelForm):
+    class Meta:
+        model = models.Placement
+        exclude = {}
+
+class internship_form(forms.ModelForm):
+    class Meta:
+        model = models.Internship
+        exclude = {}
+
+class collaboration_form(forms.ModelForm):
+    class Meta:
+        model = models.Collaboration
+        exclude = {}
+
+class message_form(forms.ModelForm):
+    class Meta:
+        model = models.Message
+        exclude = {}

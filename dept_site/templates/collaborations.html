@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}| CSE Collaborations |{% endblock title %}
+{% block highlights_class %}active{% endblock  %}
+
+{% block content %}     
+    
+  <style type="text/css">
+
+
+.portfolio-wrap{
+  margin-top: 30px;
+}
+  	
+  </style>
+
+<section id="portfolio" class="portfolio">
+
+      <div class="container" data-aos="fade-up">
+
+        
+
+        <header class="section-header" style="text-align: center; margin-top: 50px;">
+          <h2>Our Collaborations</h2>
+          <p><strong>Comming together is a beginnig, keeking together is progress, working together is success - Henry Ford</strong></p>
+        </header>
+
+        <div class="row" data-aos="fade-up" data-aos-delay="100">
+          <div class="col-lg-12 d-flex justify-content-center">
+            <ul id="portfolio-flters">
+              <li data-filter="*" class="filter-active">All</li>
+              <li data-filter=".filter-app">Academic Partnerships</li>
+              <li data-filter=".filter-card">Industries Interactions</li>
+              <li data-filter=".filter-web">Professional Cooperations</li>
+              <li data-filter=".filter-page">Research Partnerships</li>
+              <li data-filter=".filter-link">Others</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="row gy-4 portfolio-container" data-aos="fade-up" data-aos-delay="200">
+
+        {% for c in collaborations %}
+          <div class="col-lg-3 col-md-6 portfolio-item {% if c.colab_type == 'Academic Partnerships' %}filter-app {% elif c.colab_type == 'Industries Interactions' %}filter-card {% elif c.colab_type == 'Industries Interactions'%} {% elif c.colab_type == 'Professional Cooperations' %}filter-web{% elif c.colab_type == 'Research Partnerships'%}filter-page {% else %}filter-link{% endif %}">
+            <div class="portfolio-wrap">
+              <img src="{{c.logo.url}}" class="img-fluid" alt="">
+              <a href="{{c.link}}" target=="_blank"><div class="portfolio-info">
+                <h4>{{c.name}}</h4>
+              </div></a>
+            </div>
+          </div>
+        {% endfor %}
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+{% endblock %}

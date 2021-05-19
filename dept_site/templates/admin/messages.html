@@ -1,0 +1,91 @@
+{% extends 'admin/dash.html' %}
+{% load widget_tweaks %}
+{% block content %}
+
+
+<div class="container-fluid table-responsive" > 
+<div class="d-sm-flex align-items-center justify-content-between mb-4"><h1 class="h3 mb-0 text-gray-800">New Messages</h1></div>
+
+<table class="table table-bordered table-hover modal_all" style="text-align: center;">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">S.No</th>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Phn no:</th>
+      <th scope="col">Subject</th>
+      <th scope="col">Description</th>
+      <th scope="col">Delete&nbsp;<i class="fa fa-ban" aria-hidden="true"></i></th>
+    </tr>
+  </thead>
+  <tbody>
+
+    {% for m in messages %}
+    <tr>
+      <td scope="row"></td>
+      <td>{{m.name}}</td>
+      <td>{{m.email}}</td>
+      <td>{{m.phn_no}}</td>
+      <td>{{m.subject}}</td>
+      <td>
+          <a href="#" data-toggle="modal" data-target="#view{{m.id}}"><i class="fa fa-eye"></i></a>
+          <div class="modal fade top" id="view{{m.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabe2" aria-hidden="true" data-backdrop="true">
+              <div class="modal-dialog modal-frame modal-top modal-notify modal-info" role="document">
+                  <div class="modal-content">
+                      <div class="modal-body">
+                          <div class="row d-flex justify-content-center align-items-center" style="z-index: 1000">
+                              <h4> {{m.subject}}</h4>
+                              <p>{{m.message}}</p>
+                              <a href="mailto:{{m.email}}" target="_blank"><button class="btn btn-success" style="font-size: 15px;">Send mail</button></a>
+                              <button href="#" class="btn btn-danger" data-dismiss="modal" style="font-size: 15px; margin-left: 5px;">Close</button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </td>
+      <td>
+          <a href="#" data-toggle="modal" data-target="#viewmodel{{m.id}}"><button class="btn btn-danger">Delete</button></a>
+          <div class="modal fade top" id="viewmodel{{m.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabe2" aria-hidden="true" data-backdrop="true">
+              <div class="modal-dialog modal-frame modal-top modal-notify modal-info" role="document">
+                  <div class="modal-content">
+                      <div class="modal-body">
+                          <div class="row d-flex justify-content-center align-items-center" style="z-index: 1000">
+                              <h4> Deleting message of {{m.name}}</h4>
+                              <p>Clicking on OK will perminantally delete the message entry from the database </p>
+                              <p>Are you sure ?</p>
+                              <hr>
+                              <a href="admin_delete/{{m.id}}/message"><button class="btn btn-success" style="font-size: 15px;">Yes</button></a>
+                              <button href="#" class="btn btn-danger" data-dismiss="modal" style="font-size: 15px; margin-left: 5px;">Cancel</button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </td>
+    </tr>
+    {% endfor %}
+
+    
+  </tbody>
+</table>
+</div>
+ 
+
+
+
+
+
+
+
+  </div>
+{% endblock %}
+{% block scripts %}
+<script>
+  $(document).ready(function(){
+    $('table').find('tr').not(':eq(0)').each(function(i){
+        $(this).children('td:eq(0)').text(i+1).css('font-weight', 'bold');
+    });
+});
+</script>
+{% endblock scripts %}

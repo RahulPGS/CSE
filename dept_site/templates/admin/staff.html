@@ -4,8 +4,9 @@
 
           <div class="col-md-10 py-5 container">
             <h4 class="pb-4">Enter the details of Staff</h4>
-            <form action="{% if id %}/admin/staff/{{id}}{% else %}staff{% endif %}" method='post'>
+            <form action="{% if id %}/admin/staff/{{id}}{% else %}staff{% endif %}" method='post' enctype="multipart/form-data">
             {% csrf_token %}
+            {{ form.media }}
                 <div class="form-row">
                     <div class="form-group col-md-6">
                       {% render_field form.name placeholder="Full Name" class="form-control" %}
@@ -22,12 +23,15 @@
                     <div class="form-group col-md-6">
                         {% render_field form.profession placeholder="Profession" class="form-control" %}
                     </div>
-
-
                 </div>
 
+                    <div class="from-group">
+                        <label class="form-label">Upload recent image</label>
+                        {% render_field form.image class="form-control"%}
+                    </div>
 
-                <div class="form-row">
+
+                <div class="form-group">
                     <Button type="submit" class="btn btn-info">Submit</Button>
                 </div>
             </form>

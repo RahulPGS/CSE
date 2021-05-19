@@ -1,21 +1,29 @@
 from django.shortcuts import render, redirect
 import django
-from .models import Faculty, Staff, Publication, Gallery, News, Slide, Award, Timetablenacedemics, Events, Batch
-from .forms import Faculty_form, Staff_form, Event_form, A_cal_form, publication_form, gallery_form, news_form, slide_form, award_form, batch_form
+from .models import Faculty, Staff, Publication, Gallery, News, Slide, Award, Timetablenacedemics, Events, Batch, Placement, Internship, Collaboration, Message
+from .forms import Faculty_form, Staff_form, Event_form, A_cal_form, publication_form, gallery_form, news_form, slide_form, award_form, batch_form, placement_form, internship_form, collaboration_form, message_form
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 
 # Create your views here.
 
 
 def main(res):
+    form = message_form()
+    if res.method == 'POST':
+        form = message_form(res.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(res, "Message sent successfully")
+            return redirect('/')
     announcements = News.objects.filter(category='Announcement')[:2]
     updates = News.objects.filter(category='Update')[:2]
     placements = News.objects.filter(category='Placement drive')[:2]
     time_table = Timetablenacedemics.objects.get(is_time=True)
     academic_cal = Timetablenacedemics.objects.get(is_time=False)
     print(announcements, updates, placements)
-    return render(res, 'index.html', {'announcements':announcements, 'updates':updates, 'placements': placements, 'slides': Slide.objects.all(), 'time_table': time_table, 'academic_cal': academic_cal})
+    return render(res, 'index.html', {'announcements':announcements, 'updates':updates, 'placements': placements, 'slides': Slide.objects.all(), 'time_table': time_table, 'academic_cal': academic_cal, 'form': form})
 
 
 @login_required
@@ -29,7 +37,7 @@ def faculty_form(res, id=None):
             o = form.save(commit=False)
             o.approved = True
             o.save()
-            print("form saved")
+            messages.success(res, "Successfully submitted")
             return redirect('faculty')
         print(form.errors)
         return render(res, '/admin/faculty.html', {'form': form})
@@ -44,6 +52,7 @@ def admin_events(res, id=None):
             form = Event_form(res.POST, res.FILES)
         if form.is_valid():
             form.save()
+            messages.success(res, "Successfully submitted")
             return redirect('/admin/events')
         print(form.errors)
         return render(res, 'admin/events.html', {'form': form})
@@ -61,6 +70,7 @@ def admin_staff(res, id=None):
             o = form.save(commit=False)
             o.approved = True
             o.save()
+            messages.success(res, "Successfully submitted")
             return redirect('/admin/staff')
         print(form.errors)
         return render(res, 'admin/staff.html', {'form': form})
@@ -75,6 +85,7 @@ def admin_a_cal(res):
             acad = form.save(commit=False)
             acad.is_time = False
             acad.save()
+            messages.success(res, "Successfully submitted")
             return redirect('/admin/academic_calender')
         print(form.errors)
         return render(res, 'admin/academic.html', {'form': form})
@@ -86,6 +97,7 @@ def admin_tt(res):
         form = A_cal_form(res.POST, instance=Timetablenacedemics.objects.get(is_time=True))
         if form.is_valid():
             form.save()
+            messages.success(res, "Successfully submitted")
             return redirect('admin/timetable')
         print(form.errors)
         return render(res, '/admin/timetable.html', {'form': form})
@@ -96,6 +108,7 @@ def new_faculty_form(res):
         form = Faculty_form(res.POST, res.FILES)
         if form.is_valid():
             form.save()
+            messages.success(res, "Successfully submitted")
             return redirect('faculty')
         print(form.errors)
         return render(res, 'faculty_form.html', {'form': form})
@@ -107,6 +120,7 @@ def new_staff_form(res):
         form = Staff_form(res.POST, res.FILES)
         if form.is_valid():
             form.save()
+            messages.success(res, "Successfully submitted")
             return redirect('faculty')
         print(form.errors)
         return render(res, 'staff_form.html', {'form': form})
@@ -118,6 +132,7 @@ def new_publication_form(res):
         form = publication_form(res.POST, res.FILES)
         if form.is_valid():
             form.save()
+            messages.success(res, "Successfully submitted")
             return redirect('publications')
         print(form.errors)
         return render(res, 'publication_form.html', {'form': form})
@@ -129,10 +144,33 @@ def new_awards_form(res):
         form = award_form(res.POST, res.FILES)
         if form.is_valid():
             form.save()
+            messages.success(res, "Successfully submitted")
             return redirect('awards_honours')
         print(form.errors)
         return render(res, 'publication_form.html', {'form': form})
     return render(res, 'publication_form.html', {'form': award_form()})
+
+def new_placement_form(res):
+    if res.method == 'POST':
+        form = placement_form(res.POST, res.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(res, "Successfully submitted")
+            return redirect('placements')
+        print(form.errors)
+        return render(res, 'placement_form.html', {'form': form})
+    return render(res, 'placement_form.html', {'form': placement_form()})
+
+def new_internship_form(res):
+    if res.method == 'POST':
+        form = internship_form(res.POST, res.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(res, "Successfully submitted")
+            return redirect('internships')
+        print(form.errors)
+        return render(res, 'internship_form.html', {'form': form})
+    return render(res, 'internship_form.html', {'form': internship_form()})
 
 @login_required
 def admin_publication(res, id=None):
@@ -145,6 +183,7 @@ def admin_publication(res, id=None):
             o = form.save(commit=False)
             o.approved = True
             o.save()
+            messages.success(res, "Successfully submitted")
             return redirect('/admin/publications')
         print(form.errors)
         return render(res, 'admin/publication.html', {'form': form})
@@ -161,7 +200,7 @@ def admin_awards(res, id=None):
             o = form.save(commit=False)
             o.approved = True
             o.save()
-            print(o)
+            messages.success(res, "Successfully submitted")
             return redirect('/admin/awards_honours')
         print(form.errors)
         return render(res, 'admin/awards.html', {'form': form})
@@ -182,6 +221,7 @@ def admin_gallery(res):
                 o.category = category
                 o.name = name
                 o.save()
+            messages.success(res, "Successfully submitted")
             return redirect('/admin/gallery')
         print(form.errors)
         return render(res, 'admin/gallery.html', {'form': form})
@@ -196,6 +236,7 @@ def admin_news(res, id=None):
             form = news_form(res.POST)
         if form.is_valid():
             form.save()
+            messages.success(res, "Successfully submitted")
             return redirect('/admin/news')
         print(form.errors)
         return render(res, 'admin/news.html', {'form': form})
@@ -210,6 +251,7 @@ def admin_slider(res, id=None):
             form = slide_form(res.POST, res.FILES)
         if form.is_valid():
             form.save()
+            messages.success(res, "Successfully submitted")
             return redirect('/admin/slider')
         print(form.errors)
         return render(res, 'admin/slider.html', {'form': form})
@@ -225,10 +267,67 @@ def admin_students(res, id=None):
             form = batch_form(res.POST)
         if form.is_valid():
             form.save()
+            messages.success(res, "Successfully submitted")
             return redirect('/admin/students')
         print(form.errors)
         return render(res, 'admin/students.html', {'form': form})
     return render(res, 'admin/students.html', {'form': batch_form(instance=Batch.objects.get(id=id)) if id else batch_form(), 'batches': Batch.objects.all(), 'id': id if id else None})
+
+
+@login_required
+def admin_placements(res, id=None):
+    if res.method == 'POST':
+        if id:
+            form = placement_form(res.POST, instance=Placement.objects.get(id=id))
+        else:
+            form = placement_form(res.POST, res.FILES)
+        if form.is_valid():
+            o = form.save(commit=False)
+            o.approved = True
+            o.save()
+            messages.success(res, "Successfully submitted")
+            return redirect('/admin/placements')
+        print(form.errors)
+        return render(res, 'admin/placements.html', {'form': form})
+    return render(res, 'admin/placements.html', {'form': placement_form(instance=Placement.objects.get(id=id)) if id else placement_form(), 'placements': Placement.objects.all(), 'id': id if id else None})
+
+
+
+@login_required
+def admin_internships(res, id=None):
+    if res.method == 'POST':
+        if id:
+            form = internship_form(res.POST, instance=Internship.objects.get(id=id))
+        else:
+            form = internship_form(res.POST, res.FILES)
+        if form.is_valid():
+            o = form.save(commit=False)
+            o.approved = True
+            o.save()
+            messages.success(res, "Successfully submitted")
+            return redirect('/admin/internships')
+        print(form.errors)
+        return render(res, 'admin/internships.html', {'form': form})
+    return render(res, 'admin/internships.html', {'form': internship_form(instance=Internship.objects.get(id=id)) if id else internship_form(), 'internships': Internship.objects.all(), 'id': id if id else None})
+
+@login_required
+def admin_collaborations(res, id=None):
+    if res.method == 'POST':
+        if id:
+            form = collaboration_form(res.POST, instance=Collaboration.objects.get(id=id))
+        else:
+            form = collaboration_form(res.POST, res.FILES)
+        if form.is_valid():
+            o = form.save(commit=False)
+            o.approved = True
+            o.save()
+            messages.success(res, "Successfully submitted")
+            return redirect('/admin/collaborations')
+        print(form.errors)
+        return render(res, 'admin/collaborations.html', {'form': form})
+    return render(res, 'admin/collaborations.html', {'form': collaboration_form(instance=Collaboration.objects.get(id=id)) if id else collaboration_form(), 'collaborations': Collaboration.objects.all(), 'id': id if id else None})
+
+
 
 def faculty(res):
     return render(res, 'faculty.html', {'faculty': Faculty.objects.filter(approved=True)})
@@ -254,8 +353,20 @@ def gallery(res):
 def news(res):
     return render(res, 'news.html', {'news': News.objects.all().order_by('-id')})
 
+def internships(res):
+    return render(res, 'internships.html', {'internships': Internship.objects.filter(approved=True).order_by('-id')})
+
+def placements(res):
+    return render(res, 'placements.html', {'placements': Placement.objects.filter(approved=True).order_by('-id')})
+
+def collaborations(res):
+    return render(res, 'collaborations.html', {'collaborations': Collaboration.objects.all()})
+
+def messages(res):
+    return render(res, 'admin/messages.html', {'messages': Message.objects.all()})
+
 def admin_dashboard(res):
-    return render(res, 'admin/dash_new.html', {'p_pendings': Publication.objects.filter(approved=False), 'a_pendings': Award.objects.filter(approved=False), 'f_pendings': Faculty.objects.filter(approved=False), 's_pendings': Staff.objects.filter(approved=False)})
+    return render(res, 'admin/dash_new.html', {'p_pendings': Publication.objects.filter(approved=False), 'a_pendings': Award.objects.filter(approved=False), 'f_pendings': Faculty.objects.filter(approved=False), 's_pendings': Staff.objects.filter(approved=False), 'pl_pendings' : Placement.objects.filter(approved=False), 'in_pendings' : Internship.objects.filter(approved=False)})
 
 @login_required
 def admin_accept(res, id, model):
@@ -267,8 +378,13 @@ def admin_accept(res, id, model):
         o = Staff.objects.get(id=id)
     elif model == 'publication':
         o = Publication.objects.get(id=id)
+    elif model == 'internship':
+        o = Internship.objects.get(id=id)
+    elif model == 'placement':
+        o = Placement.objects.get(id=id)
     o.approved = True
     o.save()
+    messages.success(res, f'{model.title()} object is Approved')
     return redirect('/admin/dashboard')
 
 @login_required
@@ -291,6 +407,15 @@ def admin_delete(res, id, model):
         o = Slide.objects.get(id=id)
     elif model == 'batch':
         o = Batch.objects.get(id=id)
+    elif model == 'placement':
+        o = Placement.objects.get(id=id)
+    elif model == 'internship':
+        o = Internship.objects.get(id=id)
+    elif model == 'collaboration':
+        o = Collaboration.objects.get(id=id)
+    elif model == 'message':
+        o = Message.objects.get(id=id)
     o.delete()
+    messages.warning(res, f"The {model.title()} object is deleted")
     return redirect(res.META['HTTP_REFERER'])
 

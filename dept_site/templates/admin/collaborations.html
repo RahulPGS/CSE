@@ -1,0 +1,107 @@
+ {% extends 'admin/dash.html' %}
+{% load widget_tweaks %}
+{% block content %}
+<div class="col-md-10 mt-4 container">
+            <h4 class="pb-4">Collaborations Edit Form</h4>
+            <div class="card">
+              <div class="card-body">
+                <form id='form' action="{% if id %}/admin/collaborations/{{id}}{% else %}collaborations{% endif %}" method='post' enctype="multipart/form-data">
+                  {% csrf_token %}
+                {{ form.media }}
+                  <div class="form-row">
+                      <div class="form-group col-md-6">
+                        {% render_field form.name placeholder="Collaboration Name" class="form-control" type="text" %}
+                      </div>
+                      <div class="form-group col-md-6">
+                        {% render_field form.colab_type class="form-control" %}
+                      </div>
+                      
+                    </div>
+
+                  <div class="form-group">
+                    <label class="form-label" for="customFile">Upload company logo</label>
+                        {% render_field form.logo placeholder="Collaboration Name" class="form-control" %}
+                    </div>
+
+                    <div class="form-row">
+                        {% render_field form.link class="form-control" placeholder="Company website link" %}
+                      </div>
+                </form>
+                </div>
+                  
+
+                  <button type="submit" class="btn btn-primary" form='form'>Submit</button>
+                </form>
+
+              </div>
+
+        </div>
+
+      </div>
+      <!-- /.container-fluid -->
+
+    </div>
+
+     <!--   Table for Data Displaying -->
+                <div class="container table-responsive col-md-10">
+                  <h4 class="pb-4">Placement Request Details</h4>
+                    <table class="table table-bordered table-hover modal_all" style="text-align: center;">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">S.No</th>
+                                <th scope="col">Collaboration's Name</th>
+                                <th scope="col">Website</th>
+                                <th scope="col">Type</th>
+                                <th scope="col">Edit</th>
+                                <th scope="col">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for c in collaborations %}
+                            <tr>
+                                <td scope="row"></td>
+                                <td>{{c.name}} </td>
+                                <td>{{c.link}}</td>
+                                <td>{{c.colab_type}}</td>
+                                <td><a href="collaborations/{{c.id}}"><i class="fas fa-edit"></i></a></td>
+                                <td>
+                                    <a href="#" data-toggle="modal" data-target="#viewmodel{{p.id}}"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                    <div class="modal fade top" id="viewmodel{{p.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabe2" aria-hidden="true" data-backdrop="true">
+                                        <div class="modal-dialog modal-frame modal-top modal-notify modal-info" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-body">
+                                                    <div class="row d-flex justify-content-center align-items-center">
+                                                       <h4> Deleting Collaboration {{c.name}}</h4>
+                                                        <p>Clicking on OK will perminantally delete this collaboration from the database </p>
+                                                        <p>Are you sure ?</p>
+                                                        <hr>
+                                                        <a href="admin_delete/{{c.id}}/collaboration"><button class="btn btn-success" style="font-size: 15px;">Yes</button></a>
+                                                        <button href="#" class="btn btn-danger" data-dismiss="modal" style="font-size: 15px; margin-left: 5px;">Cancel</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+
+
+                        </tbody>
+                    </table>
+                </div>
+
+
+{% endblock %}
+{% block scripts %}
+<script>
+  $(document).ready(function(){
+    $('table').find('tr').not(':eq(0)').each(function(i){
+        $(this).children('td:eq(0)').text(i+1).css('font-weight', 'bold');
+    });
+});
+
+
+  $('#id_colab_type').children('option:first').text('Select Colab type').attr('disabled','disabled')
+</script>
+{% endblock scripts %}

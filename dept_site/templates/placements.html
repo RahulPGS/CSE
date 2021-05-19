@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}| CSE Placements |{% endblock title %}
+{% block jobs_class %}active{% endblock  %}
+
+{% block content %}  
+ <section id="team" class="team section-bg">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title" style="color: black;">
+          <h2>Recently Placed</h2>
+          <p><strong>The greatest thing in this world is not so much where we stand, as in what direction we are moving.</strong></p>
+        </div>
+
+        <div class="row">
+
+        {% for i in placements %}
+
+          <div class="col-lg-6">
+            <div class="member d-flex align-items-start" data-aos="zoom-in" data-aos-delay="100">
+              <div class="pic">
+              {% if i.image %}
+                <img src="{{i.image.url}}" class="img-fluid" alt="" style='object-fit:cover;max-height:200px'>
+              {% else %}
+                <img src="{% static 'img/web.jpg' %}" class="img-fluid" alt="">
+              {% endif %}
+              </div>
+              <div class="member-info">
+                <h4>{{i.full_name}}</h4>
+                <span>{{i.id_no}}</span>
+                <p>Start month: {{i.start_date|date:"M y"}}</p><p> Initial Salary: <b>{{i.initial_package}} LPA</b></p>
+                <strong><p>{{i.job_role}} at <a href="{{i.company_link}}" target="blank">{{i.company_name}}</a></p></strong>
+                <div class="social">
+                  <a href="{{i.linked_in}}"><i class="fab fa-linkedin"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+
+        </div>
+
+      </div>
+    </section><!-- End Team Section -->
+{% endblock %}

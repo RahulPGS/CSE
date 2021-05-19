@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% block title%}| CSE Internship Form |{% endblock title%}
+{% load static %}
+{% block jobs_class %}active{% endblock %}
+{% load widget_tweaks %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'admin/css/monthpicker.css' %}">
+
+  <section id="forms" style='padding:0'>
+        <div class="container-fluid" style='padding:0'>
+    <form class="well form-horizontal" method="post"  action='internship_form' enctype="multipart/form-data">
+    {% csrf_token %}
+
+<div class="container-fluid register" style='padding:0; margin-top:0'>
+                {{ form.media }}
+                <div class="row">
+                    <div class="col-md-3 register-left">
+                        <img src="assets/img/logo.jpg" alt=""/>
+                        <h3>Welcome</h3>
+                        <p>If you are a student of CSE department of RGUKT Srikakulam and you are placed as an intern in a company fill up the form.</p>
+                        <p><b>Note : </b> On submit you will be redirected to the Internships page. Meanwhile your Internship details will be sent for evalution by the CSE Admin. On approval it will get displayed in the CSE website Internships page.<br> Evaluation may take 1-2 working days.</p>
+                    </div>
+                    <div class="col-md-9 register-right">
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                <h3 class="register-heading">New Internship entry Form</h3>
+                                <div class="row register-form">
+                                    <div class="col-md-10 container">
+                  <div class="form-row">
+                      <div class="form-group col-md-6">
+                        {% render_field form.full_name placeholder="Full Name" class="form-control" %}
+                      </div>
+                      <div class="form-group col-md-6">
+                        {% render_field form.id_no class="form-control" placeholder="Id Number" %}
+                      </div>
+                      <!--<div class="form-group col-md-6">
+                        <input id="profile" name="profile" placeholder="Internship Profile Name" class="form-control" type="text">
+                      </div>-->
+
+                      <div class="form-group col-md-12">
+                       {% render_field form.linked_in placeholder="Enter your Linkedin Profile Link" class="form-control" type="text" %}
+                      </div>
+
+                    </div>
+                     <div class="form-row">
+                      <div class="form-group col-md-6">
+                        {% render_field form.company_name class="form-control"  placeholder="Company Name" %}
+                      </div>
+
+                      
+                      <div class="form-group col-md-6">
+                        {% render_field form.job_role placeholder="Job role" class="form-control" type="text" %}
+                      </div>
+                    </div>
+
+                  <div class="form-group">
+                    {% render_field form.company_link class="form-control" placeholder="Company Website Link" %}                 
+                  </div>
+
+                  <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <input type="text" class="form-control" id="selection" value="May 2021" readonly>
+                        {% render_field form.start_date id="monthly" style="display:none" value="2021-05-01 "%}
+                    </div>
+                    <div class="form-group col-md-6">
+                        {% render_field form.duration class="form-control" placeholder="Enter duration in months"%}
+                    </div>
+                </div>
+
+                
+                <div class="form-group">
+                   {% render_field form.request class="form-control" placeholder="Write a request for your acceptance with description about your internship profile " rows="5" %}
+                 </div>
+                <div class="form-row">
+                    <label class="form-label" for="customFile">Upload OfferLetter/ Supporting Documents</label>
+                    {% render_field form.call_letter class="form-control" id="customFile" %}
+                  </div>
+                  <div class="form-row">
+                    <label class="form-label" for="customFile">Upload Recent image</label>
+                    {% render_field form.image class="form-control" id="customFile" %}
+                </div>
+
+                                        <Button type="submit" class="btnRegister facbutton">Submit</Button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </form>
+        
+
+            </div>
+</section>
+{% endblock content %}
+
+{% block scripts %}
+<script src="{% static 'js/monthpicker.js' %}"></script>
+
+<script>
+
+  $(document).ready(function(){
+    $('#table').find('tr').not(':eq(0)').each(function(i){
+        $(this).children('td:eq(0)').text(i+1).css('font-weight', 'bold');
+    });
+});
+</script>
+{% endblock scripts %}

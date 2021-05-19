@@ -1,0 +1,136 @@
+ {% extends 'admin/dash.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'admin/css/monthpicker.css' %}">
+ <div class="col-md-10 mt-4 container">
+            <h4 class="pb-4">Internship Form</h4>
+            <div class="card">
+              <div class="card-body">
+                <form id='form' action="{% if id %}/admin/internships/{{id}}{% else %}internships{% endif %}" method='post' enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.media }}
+                  <div class="form-row">
+                      <div class="form-group col-md-6">
+                        {% render_field form.full_name placeholder="Full Name" class="form-control" %}
+                      </div>
+                      <div class="form-group col-md-6">
+                        {% render_field form.id_no class="form-control" placeholder="Id Number" %}
+                      </div>
+                      <!--<div class="form-group col-md-6">
+                        <input id="profile" name="profile" placeholder="Internship Profile Name" class="form-control" type="text">
+                      </div>-->
+
+                      <div class="form-group col-md-12">
+                       {% render_field form.linked_in placeholder="Enter your Linkedin Profile Link" class="form-control" type="text" %}
+                      </div>
+
+                    </div>
+                     <div class="form-row">
+                      <div class="form-group col-md-6">
+                        {% render_field form.company_name class="form-control"  placeholder="Company Name" %}
+                      </div>
+
+                      <div class="form-group col-md-6">
+                        {% render_field form.job_role placeholder="Job role" class="form-control" type="text" %}
+                      </div>
+                    </div>
+
+                  <div class="form-row">
+                    {% render_field form.company_link class="form-control" placeholder="Company Website Link" %}                 
+                  </div>
+
+                  
+                  <br>
+                  
+                 <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <input type="text" class="form-control" id="selection" value="May 2021" readonly>
+                        {% render_field form.start_date id="monthly" style="display:none" placeholder="Start Month" value="2021-05-01 "%}
+                    </div>
+                    <div class="form-group col-md-6">
+                        {% render_field form.duration class="form-control" placeholder="End duration in months"%}
+                    </div>
+                  </div>
+                  <div class="form-group">
+                   {% render_field form.request class="form-control" placeholder="Write a request for your acceptance with description about your internship profile " %}
+                 </div>
+                  <div class="form-row">
+                    <label class="form-label" for="customFile">Upload OfferLetter/ Supporting Documents</label>
+                    {% render_field form.call_letter class="form-control" id="customFile" %}                 
+                  </div>
+                  <div class="form-row">
+                    <label class="form-label" for="customFile">Upload Recent image</label>
+                    {% render_field form.image class="form-control" id="customFile" %}
+                </div>
+                </form>
+                </div>
+                  <button type="submit" class="btn btn-primary" form='form'>Submit</button>
+
+        </div>
+
+      </div>
+      <!-- /.container-fluid -->
+
+    </div>
+
+     <!--   Table for Data Displaying -->
+                <div class="container table-responsive col-md-10">
+                  <h4 class="pb-4">Placements</h4>
+                    <table class="table table-bordered table-hover modal_all" id='table' style="text-align: center;">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">S.No</th>
+                                <th scope="col">Student Name</th>
+                                <th scope="col">Job role</th>
+                                <th scope="col">Company Name</th>
+                                <th scope="col">Call Letter</th>
+                                <th scope="col">Edit</th>
+                                <th scope="col">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for p in internships %}
+                            <tr>
+                                <td scope="row"></td>
+                                <td>{{p.full_name}}</td>
+                                <td>{{p.job_role}}</td>
+                                <td>{{p.company_name}}</td>
+                                <td><a href='{{p.call_letter.url}}' target='_blank'><i class="fa fa-eye"></td>
+                                <td><a href="internships/{{p.id}}"><i class="fa fa-edit"></i></a></td>
+                                <td>
+                                    <a href="#" data-toggle="modal" data-target="#viewmodel{{p.id}}"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                    <div class="modal fade top" id="viewmodel{{p.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabe2" aria-hidden="true" data-backdrop="true">
+                                        <div class="modal-dialog modal-frame modal-top modal-notify modal-info" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-body">
+                                                    <div class="row d-flex justify-content-center align-items-center">
+                                                       <h4> Deleting Placement {{p.name}}</h4>
+                                                        <p>Clicking on OK will perminantally delete this internship from the database </p>
+                                                        <p>Are you sure ?</p>
+                                                        <hr>
+                                                        <a href="admin_delete/{{p.id}}/internship"><button class="btn btn-success" style="font-size: 15px;">Yes</button></a>
+                                                        <button href="#" class="btn btn-danger" data-dismiss="modal" style="font-size: 15px; margin-left: 5px;">Cancel</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+{% endblock %}
+{% block scripts %}
+<script>
+  $(document).ready(function(){
+    $('#table').find('tr').not(':eq(0)').each(function(i){
+        $(this).children('td:eq(0)').text(i+1).css('font-weight', 'bold');
+    });
+});
+</script>
+<script src="{% static 'js/monthpicker.js' %}"></script>
+{% endblock scripts %}

@@ -89,7 +89,7 @@
     <header id="header" class="sticky-top">
       <div class="container-fluid">
         <div class="row justify-content-center">
-          <div class="col-xl-9 d-flex align-items-center">
+          <div class="col-xl-10 d-flex align-items-center p-0">
             <h1 class="logo mr-auto cse"><a href="/">CSE</a></h1>
             <!-- <a href="index.html" class="logo mr-auto"><img src="{% static 'img/logo.jpg" alt="" class="img-fluid"></a> -->
 
@@ -152,11 +152,21 @@
                 <li class="drop-down {% block highlights_class %}{% endblock%}">
                   <a href="">Highlights</a>
                   <ul>
+                    <li><a href="collaborations">Collaborations</a></li>
                     <li><a href="awards_honours">Awards and Honours</a></li>
                     <li><a href="events">Events and Workshops</a></li>
                     <li><a href="gallery">Gallery</a></li>
                   </ul>
                 </li>
+
+                <li class="drop-down {% block jobs_class %}{% endblock%}">
+                  <a href="">Jobs</a>
+                  <ul>
+                    <li><a href="internships">Internships</a></li>
+                    <li><a href="placements">Placements</a></li>
+                  </ul>
+                </li>
+
                 <li class=" {% block news_class %}{% endblock%}">
                   <a href="news"
                     >News</a
@@ -197,7 +207,6 @@
                 RGUKT - Srikakulam Campus <br />
                 Nuzvid, Krishna, Andhra Pradesh<br />
                 India, Pin:521202<br /><br />
-                <strong>Phone: 9030224486</strong><br />
                 <strong>Email: hodcse@rguktsklm.ac.in</strong>
               </p>
             </div>
@@ -283,19 +292,27 @@
               <ul>
                 <li>
                   <i class="bx bx-chevron-right"></i>
-                  <a href="/publication_form">New Publication Form</a>
+                  <a href="/publication_form" target="_blank">New Publication Form</a>
                 </li>
                 <li>
                   <i class="bx bx-chevron-right"></i>
-                  <a href="/award_form">New Award Form</a>
+                  <a href="/award_form" target="_blank">New Award Form</a>
                 </li>
                 <li>
                   <i class="bx bx-chevron-right"></i>
-                  <a href="/faculty_form">New Faculty Form</a>
+                  <a href="/faculty_form" target="_blank">New Faculty Form</a>
                 </li>
                 <li>
                   <i class="bx bx-chevron-right"></i>
-                  <a href="/staff_form">New Staff Form</a>
+                  <a href="/staff_form" target="_blank">New Staff Form</a>
+                </li>
+                <li>
+                  <i class="bx bx-chevron-right"></i>
+                  <a href="/internship_form" target="_blank">New Internship Form</a>
+                </li>
+                <li>
+                  <i class="bx bx-chevron-right"></i>
+                  <a href="/placement_form" target="_blank">New Placement Form</a>
                 </li>
               </ul>
             </div>
@@ -324,6 +341,38 @@
         </div>
       </div>
     </footer>
+
+{% for k,v in form.errors.items %}
+  <div class="toast" data-autohide="false" style="position: fixed; bottom:50px; right: 50px; z-index:1000 float:right">
+    <div class="toast-header">
+      <i class="fas fa-comment-alt" style="color:#ff0033 "></i>&nbsp
+      <strong class="mr-auto">Error!!</strong>
+      <small>Now</small>
+      <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="toast-body">
+      {{k}} : {{v}}
+    </div>
+  </div>
+{% endfor %}
+
+{% for m in messages %}
+  <div class="toast" data-autohide="false" style="position: fixed; bottom:50px; right: 50px; z-index:1000 float:right">
+    <div class="toast-header">
+      <i class="fas fa-comment-alt" style="color:#3474eb "></i>&nbsp
+      <strong class="mr-auto">{{m.tags}}!!</strong>
+      <small>Now</small>
+      <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="toast-body">
+      {{ m }}
+    </div>
+  </div>
+{% endfor %}
 
     <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
     <div id="preloader"></div>

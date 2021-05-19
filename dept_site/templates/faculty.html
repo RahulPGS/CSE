@@ -16,7 +16,11 @@
                           <div class="frontside">
                               <div class="card">
                                   <div class="card-body text-center">
+                                      {% if f.image %}
                                       <p><img class=" img-fluid" src="{{f.image.url}}" alt="card image" style='object-fit:cover '/></p>
+                                      {% else %}
+                                      <p><img class=" img-fluid" src=" {% static 'img/dum.png' %}" alt="card image" style='object-fit:cover '/></p>
+                                      {% endif %}
                                       <h4 class="card-title">{{f.name}}</h4>
                                       <h5 class="card-title">Faculty of {{f.spec_sub}}</h5>
                                       <p class="card-text">

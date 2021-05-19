@@ -27,7 +27,7 @@ class Faculty(TimeStampable):
     sub_dealt = models.TextField(max_length=500)
     conf_attended = models.TextField(max_length=200, blank=True, null=True)
     workshops_attended = models.TextField(max_length=500, blank=True, null=True)
-    image = models.ImageField(upload_to='faculty_images/', validators=[FileExtensionValidator(allowed_extensions=['jpg', 'png', 'jpeg', 'img'])])
+    image = models.ImageField(upload_to='faculty_images/', validators=[FileExtensionValidator(allowed_extensions=['jpg', 'png', 'jpeg', 'img'])], blank=True, null=True)
     cv = models.ImageField(upload_to='faculty_cv/', validators=[FileExtensionValidator(allowed_extensions=['pdf', 'txt', 'doc', 'jpg', 'png', 'jpeg', 'img'])])
     approved = models.BooleanField(default=False)
 
@@ -38,6 +38,8 @@ class Staff(TimeStampable):
     email = models.CharField(max_length=50)
     profession = models.CharField(max_length=100)
     approved = models.BooleanField(default=False)
+    image = models.ImageField(upload_to='staff_images/', validators=[FileExtensionValidator(allowed_extensions=['jpg', 'png', 'jpeg', 'img'])], blank=True, null=True)
+
 
 
 class Publication(TimeStampable):
@@ -97,3 +99,39 @@ class Slide(models.Model):
 class Batch(models.Model):
     batch_year = models.CharField(max_length=4)
     batch_link = models.TextField()
+
+
+class Job(models.Model):
+    full_name = models.CharField(max_length=50)
+    id_no = models.CharField(max_length=7)
+    linked_in = models.CharField(max_length=1000, null=True, blank=True)
+    job_role = models.CharField(max_length=100)
+    company_name = models.CharField(max_length=50)
+    company_link = models.CharField(max_length=1000, null=True, blank=True)
+    call_letter = models.FileField(upload_to='jobs/', validators=[FileExtensionValidator(allowed_extensions=['jpg', 'png', 'jpeg', 'img', 'doc', 'pdf', 'ppt'])])
+    start_date = models.DateField()
+    request = models.TextField()
+    approved = models.BooleanField(default=False)
+    image = models.ImageField(upload_to='job_students', validators=[FileExtensionValidator(allowed_extensions=['jpg', 'png', 'jpeg', 'img'])], blank=True, null=True)
+
+
+class Internship(Job):
+    duration = models.IntegerField()
+
+
+class Placement(Job):
+    initial_package = models.FloatField()
+
+class Collaboration(TimeStampable):
+    types = [('Academic Partnerships', 'Academic Partnerships'), ('Industries Interactions', 'Industries Interactions'), ('Professional Cooperations', 'Professional Cooperations'), ('Research Partnerships', 'Research Partnerships'), ('Others', 'Others')]
+    logo = models.ImageField(upload_to="slides/", validators=[FileExtensionValidator(allowed_extensions=['jpg', 'png', 'jpeg', 'img'])])
+    link = models.TextField(blank=True, null=True)
+    name = models.CharField(max_length=100)
+    colab_type = models.CharField(choices=types, max_length=50)
+
+class Message(TimeStampable):
+    name = models.CharField(max_length=40)
+    email = models.EmailField()
+    phn_no = models.CharField(max_length=10, blank=True, null=True)
+    subject = models.CharField(max_length=50)
+    message = models.TextField()

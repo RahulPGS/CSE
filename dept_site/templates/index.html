@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load widget_tweaks %}
 {% block title %}| RGUKT CSE |{% endblock title %}
 {% block home_class %}active{% endblock home_class %}
 {% block content %}
@@ -119,7 +120,7 @@
                   </div>
                 </div>
 
-                <a class="ap-viewmore" id="updates-view-more-id" href="news">View More  <i class="far fa-hand-point-right"></i>
+                <a class="ap-viewmore" id="updates-view-more-id" href="news" target="_blank">View More  <i class="far fa-hand-point-right"></i>
                 </a>
 
               </div>
@@ -169,7 +170,7 @@
                   </div>
                 </div>
 
-                <a class="ap-viewmore" id="events-view-more-id" href="news">View More  <i class="far fa-hand-point-right"></i>
+                <a class="ap-viewmore" id="events-view-more-id" href="news" target="_blank">View More  <i class="far fa-hand-point-right"></i>
                 </a>
               </div>
 
@@ -216,7 +217,7 @@
                     </div>
                   </div>
                 </div>
-                <a class="ap-viewmore" id="job-fair-view-more-id" href="news">View More <i class="far fa-hand-point-right"></i>
+                <a class="ap-viewmore" id="job-fair-view-more-id" href="news" target="_blank">View More <i class="far fa-hand-point-right"></i>
                 </a>
               </div>
               <!-- Job fair Tab end here -->
@@ -253,7 +254,7 @@
             <img src="{% static 'img/faculty.png' %}" alt="">
 
             <h3>Students</h3>
-            <p>Students are very entergitic and activity participates in programs</p>
+            <p>Students are very entergitic and activily participates in programs</p>
             <a href="students" class="read-more"><span>Know More</span> <i class="bi bi-arrow-right"></i></a>
           </div>
         </div>
@@ -263,7 +264,7 @@
             <!-- <i class="ri-discuss-line icon"></i> -->
             <img src="{% static 'img/faculty.png' %}" alt="">
             <h3>Tech/Non-Tech Staff</h3>
-            <p>Lab Technicians and Non teaching staff are vere skilled in their field</p>
+            <p>Lab Technicians and Non teaching staff who are vere skilled in their field</p>
             <a href="staff" class="read-more"><span>Know More</span> <i class="bi bi-arrow-right"></i></a>
           </div>
         </div>
@@ -291,7 +292,7 @@
             <img src="{% static 'img/shield.png' %}" alt="" height="150px" width="150px;">
             <h3>Labs and Projects</h3>
             <p>Higly advanced labs with practical implementation of real life projects</p>
-            <a href="labs.html" class="read-more"><span>Know More</span> <i class="bi bi-arrow-right"></i></a>
+            <a href="labs" class="read-more"><span>Know More</span> <i class="bi bi-arrow-right"></i></a>
           </div>
         </div>
 
@@ -300,8 +301,8 @@
             <!-- <i class="ri-discuss-line icon"></i> -->
             <img src="{% static 'img/vector.png' %}" alt="" height="150px" width="150px;">
             <h3>Publications and Acheivements</h3>
-            <p>World wide Publications and show case Acheivements are acheived </p>
-            <a href="publication.html" class="read-more"><span>Know More</span> <i class="bi bi-arrow-right"></i></a>
+            <p>World wide Publications and Achievements</p>
+            <a href="publications" class="read-more"><span>Know More</span> <i class="bi bi-arrow-right"></i></a>
           </div>
         </div>
 
@@ -311,7 +312,7 @@
             <img src="{% static 'img/research.png' %}" alt="" height="150px" width="150px;">
             <h3>Research and Workshops</h3>
             <p>Tendency of research and conducting workshops </p>
-            <a href="research.html" class="read-more"><span>Know More</span> <i class="bi bi-arrow-right"></i></a>
+            <a href="research_areas" class="read-more"><span>Know More</span> <i class="bi bi-arrow-right"></i></a>
           </div>
         </div>
       </div>
@@ -346,7 +347,7 @@
 
           <div class="col-lg-3 col-6 text-center">
             <span data-toggle="counter-up">10</span>
-            <p>Acheivements</p>
+            <p>Achievements</p>
           </div>
 
         </div>
@@ -369,22 +370,22 @@
             <div class="icon-box mt-5 mt-lg-0" data-aos="fade-up" data-aos-delay="100">
               <i class="bx bx-receipt"></i>
               <h4>Gate CSE</h4>
-              <p>We recently established a brach for those students who are interested in gate</p>
+              <p>We recently established a branch for those students who are interested in gate</p>
             </div>
             <div class="icon-box mt-5" data-aos="fade-up" data-aos-delay="200">
               <i class="bx bx-cube-alt"></i>
-              <h4>Highter Studies</h4>
-              <p>Specialized Cell has be maintained to help students to pursue Highter studies after enginnering</p>
+              <h4>Higher Studies</h4>
+              <p>Specialized Cell  to help students to pursue Higher studies after engineering</p>
             </div>
             <div class="icon-box mt-5" data-aos="fade-up" data-aos-delay="300">
               <i class="bx bx-images"></i>
               <h4>E-Cell</h4>
-              <p>Full monitored E-Cell has been implemented in University for those who are interested in Entrapenuership</p>
+              <p>Full monitored E-Cell has been implemented in University for those who are interested in Entrepreneurship</p>
             </div>
             <div class="icon-box mt-5" data-aos="fade-up" data-aos-delay="400">
               <i class="bx bx-shield"></i>
               <h4>Govt Jobs</h4>
-              <p>Full Experienced faculty to scope the student to crack governments exams</p>
+              <p>Full Experienced faculty to scope the student to crack government exams</p>
             </div>
           </div>
           <div class="image col-lg-6 order-1 order-lg-2 " data-aos="zoom-in" data-aos-delay="100">
@@ -402,11 +403,11 @@
 
         <div class="section-title">
           <h2>Contact US</h2>
-          <p>Free feel to contact us for more information</p>
+          <p>Feel free to contact us for more information</p>
         </div>
 
         <div class="row">
-          <div class="col-lg-6">
+          <div class="col-lg-8">
             <div class="info-box mb-4">
               <i class="bx bx-map"></i>
               <h3>Our Address</h3>
@@ -414,7 +415,7 @@
             </div>
           </div>
 
-          <div class="col-lg-3 col-md-6">
+          <div class="col-lg-4 col-md-8">
             <div class="info-box  mb-4">
               <i class="bx bx-envelope"></i>
               <h3>Email Us</h3>
@@ -423,6 +424,7 @@
             </div>
           </div>
 
+        <!--
           <div class="col-lg-3 col-md-6">
             <div class="info-box  mb-4">
               <i class="bx bx-phone-call"></i>
@@ -430,6 +432,7 @@
               <p> +91 9030224486</p>
             </div>
           </div>
+          -->
 
         </div>
 
@@ -442,33 +445,29 @@
           </div>
 
           <div class="col-lg-6">
-            <form method="post" role="form" class="php-email-form">
+            <form method="post" role="form" class="php-email-form" action='/'>
+            {% csrf_token %}
               <div class="form-row">
                 <div class="col-md-12 form-group">
-                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                  {% render_field form.name class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" %}
                   <div class="validate"></div>
                 </div>
                 <div class="col-md-6 form-group">
-                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />
+                   {% render_field form.email class="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" %}
                   <div class="validate"></div>
                 </div>
                 <div class="col-md-6 form-group">
-                  <input type="number" name="name" class="form-control" id="number" placeholder="Your Phone Num" data-rule="minlen:4" data-msg="Please enter your Phone Number" />
+                   {% render_field form.phn_no name="name" class="form-control" id="number" placeholder="Your Phone Num" data-rule="minlen:4" data-msg="Please enter your Phone Number" %}
                   <div class="validate"></div>
                 </div>
               </div>
               <div class="form-group">
-                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
+                 {% render_field form.subject class="form-control" name="subject" id="subject" placeholder="Subject" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" %}
                 <div class="validate"></div>
               </div>
               <div class="form-group">
-                <textarea class="form-control" name="message" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Message"></textarea>
+                 {% render_field form.message rows="5" class="form-control" data-rule="required" data-msg="Please write something for us" placeholder="Message" %}
                 <div class="validate"></div>
-              </div>
-              <div class="mb-3">
-                <div class="loading">Loading</div>
-                <div class="error-message"></div>
-                <div class="sent-message">Your message has been sent. Thank you!</div>
               </div>
               <div class="text-center"><button type="submit">Send Message</button></div>
             </form>
