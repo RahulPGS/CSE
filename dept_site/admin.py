@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Faculty, Staff, Publication, Gallery, News, Slide, Award, Events, Timetablenacedemics, Placement, Internship, Collaboration, Message
+from .models import Faculty, Staff, Publication, Gallery, News, Slide, Award, Events, Timetablenacedemics, Placement, Internship, Collaboration, Message, File
 # Register your models here.
 
 
@@ -16,6 +16,8 @@ admin.site.register(Placement)
 admin.site.register(Internship)
 admin.site.register(Collaboration)
 admin.site.register(Message)
+admin.site.register(File)
+
 
 
 

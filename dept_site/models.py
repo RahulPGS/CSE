@@ -1,7 +1,6 @@
 from django.db import models
 from django.core.validators import FileExtensionValidator
 from datetime import date
-
 # Create your models here.
 
 class TimeStampable(models.Model):
@@ -90,6 +89,11 @@ class News(TimeStampable):
     category = models.CharField(max_length=20, choices=categories)
     description = models.TextField()
     link = models.TextField(blank=True, null=True)
+
+
+class File(TimeStampable):
+    a_file = models.FileField(upload_to="news/", blank=True, null=True)
+    f_object = models.ForeignKey('News', on_delete=models.CASCADE, related_name="news")
 
 class Slide(models.Model):
     title = models.CharField(max_length=100)

@@ -7,8 +7,9 @@
                 <h4 class="pb-4">News Details</h4>
                 <div class="card">
                   <div class="card-body">
-                    <form action='{% if id %}/admin/news/{{id}} {% else %}news{% endif %}' method='post'>
-                    {% csrf_token %}
+                    <form action='{% if id %}/admin/news/{{id}} {% else %}news{% endif %}' method='post' enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.media }}
                       <div class="form-row">
                           <div class="form-group col-md-6">
                             {% render_field form.title placeholder="Title of news" class="form-control"%}
@@ -26,6 +27,15 @@
                         <div class="form-group">
                             {% render_field form.link placeholder="Enter the link(optional)" class="form-control" type="text"%}
                           </div>
+                        
+                        <div class="form-row">
+                            <label class="form-label" for="customFile">Upload attachment files</label>
+                            {% if id %}
+                              <p>Currently attached items {% for f in files %}<a href="{{f.a_file.url}}">{{f.a_file.url|truncatechars:10}}</a>,{% endfor %}</p><br>
+                              <input type="checkbox" name="delPrev">Delete previous files</input>
+                            {% endif %}
+                            <input type="file" name="files" class="form-control-file" id="note-image" multiple>
+                        </div>
 
                       <button type="submit" class="btn btn-primary">Submit</button>
                     </form>

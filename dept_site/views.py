@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 import django
-from .models import Faculty, Staff, Publication, Gallery, News, Slide, Award, Timetablenacedemics, Events, Batch, Placement, Internship, Collaboration, Message
+from .models import Faculty, Staff, Publication, Gallery, News, Slide, Award, Timetablenacedemics, Events, Batch, Placement, Internship, Collaboration, Message, File
 from .forms import Faculty_form, Staff_form, Event_form, A_cal_form, publication_form, gallery_form, news_form, slide_form, award_form, batch_form, placement_form, internship_form, collaboration_form, message_form
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -17,13 +17,11 @@ def main(res):
             form.save()
             messages.success(res, "Message sent successfully")
             return redirect('/')
-    announcements = News.objects.filter(category='Announcement')[:2]
-    updates = News.objects.filter(category='Update')[:2]
-    placements = News.objects.filter(category='Placement drive')[:2]
-    time_table = Timetablenacedemics.objects.get(is_time=True)
-    academic_cal = Timetablenacedemics.objects.get(is_time=False)
+    announcements = News.objects.filter(category='Announcement').order_by('-id')[:2]
+    updates = News.objects.filter(category='Update').order_by('-id')[:2]
+    placements = News.objects.filter(category='Placement drive').order_by('-id')[:2]
     print(announcements, updates, placements)
-    return render(res, 'index.html', {'announcements':announcements, 'updates':updates, 'placements': placements, 'slides': Slide.objects.all(), 'time_table': time_table, 'academic_cal': academic_cal, 'form': form})
+    return render(res, 'index.html', {'announcements':announcements, 'updates':updates, 'placements': placements, 'slides': Slide.objects.all().order_by('-id'), 'form': form})
 
 
 @login_required
@@ -41,7 +39,7 @@ def faculty_form(res, id=None):
             return redirect('faculty')
         print(form.errors)
         return render(res, '/admin/faculty.html', {'form': form})
-    return render(res, 'admin/faculty.html', {'form': Faculty_form(instance=Faculty.objects.get(id=id)) if id else Faculty_form(), 'faculty': Faculty.objects.all(), 'id': id if id else None})
+    return render(res, 'admin/faculty.html', {'form': Faculty_form(instance=Faculty.objects.get(id=id)) if id else Faculty_form(), 'faculty': Faculty.objects.all().order_by('-id'), 'id': id if id else None})
 
 @login_required
 def admin_events(res, id=None):
@@ -56,7 +54,7 @@ def admin_events(res, id=None):
             return redirect('/admin/events')
         print(form.errors)
         return render(res, 'admin/events.html', {'form': form})
-    return render(res, 'admin/events.html', {'form': Event_form(instance=Events.objects.get(id=id)) if id else Event_form(), 'events': Events.objects.all(), 'id': id if id else None})
+    return render(res, 'admin/events.html', {'form': Event_form(instance=Events.objects.get(id=id)) if id else Event_form(), 'events': Events.objects.all().order_by('-id'), 'id': id if id else None})
 
 
 @login_required
@@ -74,7 +72,7 @@ def admin_staff(res, id=None):
             return redirect('/admin/staff')
         print(form.errors)
         return render(res, 'admin/staff.html', {'form': form})
-    return render(res, 'admin/staff.html', {'form': Staff_form(instance=Staff.objects.get(id=id)) if id else Staff_form(), 'staff': Staff.objects.all(), 'id': id if id else None})
+    return render(res, 'admin/staff.html', {'form': Staff_form(instance=Staff.objects.get(id=id)) if id else Staff_form(), 'staff': Staff.objects.all().order_by('-id'), 'id': id if id else None})
 
 
 @login_required
@@ -187,7 +185,7 @@ def admin_publication(res, id=None):
             return redirect('/admin/publications')
         print(form.errors)
         return render(res, 'admin/publication.html', {'form': form})
-    return render(res, 'admin/publication.html', {'form': publication_form(instance=Publication.objects.get(id=id)) if id else publication_form(), 'objects': Publication.objects.all(), 'id': id if id else None})
+    return render(res, 'admin/publication.html', {'form': publication_form(instance=Publication.objects.get(id=id)) if id else publication_form(), 'objects': Publication.objects.all().order_by('-id'), 'id': id if id else None})
 
 @login_required
 def admin_awards(res, id=None):
@@ -204,7 +202,7 @@ def admin_awards(res, id=None):
             return redirect('/admin/awards_honours')
         print(form.errors)
         return render(res, 'admin/awards.html', {'form': form})
-    return render(res, 'admin/awards.html', {'form': award_form(instance=Award.objects.get(id=id)) if id else award_form(), 'awards': Award.objects.all(), 'id': id if id else None})
+    return render(res, 'admin/awards.html', {'form': award_form(instance=Award.objects.get(id=id)) if id else award_form(), 'awards': Award.objects.all().order_by('-id'), 'id': id if id else None})
 
 
 @login_required
@@ -225,22 +223,34 @@ def admin_gallery(res):
             return redirect('/admin/gallery')
         print(form.errors)
         return render(res, 'admin/gallery.html', {'form': form})
-    return render(res, 'admin/gallery.html', {'form': gallery_form(), 'gallery': Gallery.objects.all()})
+    return render(res, 'admin/gallery.html', {'form': gallery_form(), 'gallery': Gallery.objects.all().order_by('-id')})
 
 @login_required
 def admin_news(res, id=None):
     if res.method == 'POST':
         if id:
-            form = news_form(res.POST, instance=News.objects.get(id=id))
+            form = news_form(res.POST, res.FILES, instance=News.objects.get(id=id))
         else:
-            form = news_form(res.POST)
+            form = news_form(res.POST, res.FILES)
+        files = res.FILES.getlist('files')
+        del_prev = res.POST.get('delPrev')
         if form.is_valid():
-            form.save()
+            news = form.save()
+            if del_prev == "on":
+                for f in File.objects.filter(f_object=news):
+                    f.delete()
+            for f in files:
+                print(f)
+                o = File(a_file=f, f_object=news)
+                print(o)
+                o.save()
             messages.success(res, "Successfully submitted")
             return redirect('/admin/news')
         print(form.errors)
         return render(res, 'admin/news.html', {'form': form})
-    return render(res, 'admin/news.html', {'form': news_form(instance=News.objects.get(id=id)) if id else news_form(), 'news': News.objects.all(), 'id': id if id else None})
+    if id:
+        files = File.objects.filter(f_object=News.objects.get(id=id))
+    return render(res, 'admin/news.html', {'form': news_form(instance=News.objects.get(id=id)) if id else news_form(), 'news': News.objects.all().order_by('-id'), 'id': id if id else None, 'files': files if id else None})
 
 @login_required
 def admin_slider(res, id=None):
@@ -255,7 +265,7 @@ def admin_slider(res, id=None):
             return redirect('/admin/slider')
         print(form.errors)
         return render(res, 'admin/slider.html', {'form': form})
-    return render(res, 'admin/slider.html', {'form': slide_form(instance=Slide.objects.get(id=id)) if id else slide_form(), 'slides': Slide.objects.all(), 'id': id if id else None})
+    return render(res, 'admin/slider.html', {'form': slide_form(instance=Slide.objects.get(id=id)) if id else slide_form(), 'slides': Slide.objects.all().order_by('-id'), 'id': id if id else None})
 
 
 @login_required
@@ -271,7 +281,7 @@ def admin_students(res, id=None):
             return redirect('/admin/students')
         print(form.errors)
         return render(res, 'admin/students.html', {'form': form})
-    return render(res, 'admin/students.html', {'form': batch_form(instance=Batch.objects.get(id=id)) if id else batch_form(), 'batches': Batch.objects.all(), 'id': id if id else None})
+    return render(res, 'admin/students.html', {'form': batch_form(instance=Batch.objects.get(id=id)) if id else batch_form(), 'batches': Batch.objects.all().order_by('-id'), 'id': id if id else None})
 
 
 @login_required
@@ -289,7 +299,7 @@ def admin_placements(res, id=None):
             return redirect('/admin/placements')
         print(form.errors)
         return render(res, 'admin/placements.html', {'form': form})
-    return render(res, 'admin/placements.html', {'form': placement_form(instance=Placement.objects.get(id=id)) if id else placement_form(), 'placements': Placement.objects.all(), 'id': id if id else None})
+    return render(res, 'admin/placements.html', {'form': placement_form(instance=Placement.objects.get(id=id)) if id else placement_form(), 'placements': Placement.objects.all().order_by('-id'), 'id': id if id else None})
 
 
 
@@ -308,7 +318,7 @@ def admin_internships(res, id=None):
             return redirect('/admin/internships')
         print(form.errors)
         return render(res, 'admin/internships.html', {'form': form})
-    return render(res, 'admin/internships.html', {'form': internship_form(instance=Internship.objects.get(id=id)) if id else internship_form(), 'internships': Internship.objects.all(), 'id': id if id else None})
+    return render(res, 'admin/internships.html', {'form': internship_form(instance=Internship.objects.get(id=id)) if id else internship_form(), 'internships': Internship.objects.all().order_by('-id'), 'id': id if id else None})
 
 @login_required
 def admin_collaborations(res, id=None):
@@ -325,7 +335,7 @@ def admin_collaborations(res, id=None):
             return redirect('/admin/collaborations')
         print(form.errors)
         return render(res, 'admin/collaborations.html', {'form': form})
-    return render(res, 'admin/collaborations.html', {'form': collaboration_form(instance=Collaboration.objects.get(id=id)) if id else collaboration_form(), 'collaborations': Collaboration.objects.all(), 'id': id if id else None})
+    return render(res, 'admin/collaborations.html', {'form': collaboration_form(instance=Collaboration.objects.get(id=id)) if id else collaboration_form(), 'collaborations': Collaboration.objects.all().order_by('-id'), 'id': id if id else None})
 
 
 
@@ -336,7 +346,7 @@ def staff(res):
     return render(res, 'staff.html', {'staff': Staff.objects.filter(approved=True)})
 
 def students(res):
-    return render(res, 'students.html', {'batches': Batch.objects.all()})
+    return render(res, 'students.html', {'batches': Batch.objects.all().order_by('-id')})
 
 def publications(res):
     return render(res, 'publication.html', {'publications': Publication.objects.filter(approved=True).order_by('-id')})
@@ -351,7 +361,18 @@ def gallery(res):
     return render(res, 'gallery.html', {'gallery': Gallery.objects.all().order_by('-id')})
 
 def news(res):
-    return render(res, 'news.html', {'news': News.objects.all().order_by('-id')})
+    news = {}
+    for i,n in enumerate(News.objects.all().order_by('-id')):
+        news[f'{i}'] = {}
+        news[f'{i}']['news'] = n
+        print(news)
+        news[f'{i}']['files'] = {'1': 'No files attached'}
+        for j,m in enumerate(File.objects.filter(f_object=n), start=1):
+            
+            news[f'{i}']['files'][f'{j}'] = m
+            print(news)
+    print(news)
+    return render(res, 'news.html', {'news': news})
 
 def internships(res):
     return render(res, 'internships.html', {'internships': Internship.objects.filter(approved=True).order_by('-id')})
@@ -360,10 +381,10 @@ def placements(res):
     return render(res, 'placements.html', {'placements': Placement.objects.filter(approved=True).order_by('-id')})
 
 def collaborations(res):
-    return render(res, 'collaborations.html', {'collaborations': Collaboration.objects.all()})
+    return render(res, 'collaborations.html', {'collaborations': Collaboration.objects.all().order_by('-id')})
 
 def message(res):
-    return render(res, 'admin/messages.html', {'message': Message.objects.all()})
+    return render(res, 'admin/messages.html', {'message': Message.objects.all().order_by('-id')})
 
 def admin_dashboard(res):
     return render(res, 'admin/dash_new.html', {'p_pendings': Publication.objects.filter(approved=False), 'a_pendings': Award.objects.filter(approved=False), 'f_pendings': Faculty.objects.filter(approved=False), 's_pendings': Staff.objects.filter(approved=False), 'pl_pendings' : Placement.objects.filter(approved=False), 'in_pendings' : Internship.objects.filter(approved=False)})

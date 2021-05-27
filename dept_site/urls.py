@@ -27,8 +27,8 @@ urlpatterns = [
     #static pages
     path('web_team', TemplateView.as_view(
         template_name='web_team.html'), name='web_team'),
-    path('curriculam', TemplateView.as_view(
-        template_name='curriculam.html'), name='curriculam'),
+    path('curriculum', TemplateView.as_view(
+        template_name='curriculum.html'), name='curriculum'),
     path('courses', TemplateView.as_view(
         template_name='course.html'), name='courses'),
     path('labs', TemplateView.as_view(
