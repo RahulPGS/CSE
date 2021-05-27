@@ -6,6 +6,7 @@
                 <div class="card">
                   <div class="card-body">
                     <form action='academic_calender' method='post'>
+                    {% csrf_token %}
                       <div class="form-group">
                         <label for="exampleInputEmail1">Academic Calender </label>
                         {% render_field form.link class="form-control" id="time" aria-describedby="" placeholder="Enter Academic Calender Link"%} 

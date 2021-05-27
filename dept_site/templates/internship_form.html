@@ -4,6 +4,8 @@
 {% block jobs_class %}active{% endblock %}
 {% load widget_tweaks %}
 {% block content %}
+<h2 style="margin:100px auto" align="center"> We are sorry for the inconvenience but this page is under maintenance</h2> 
+{% comment%}
 <link rel="stylesheet" href="{% static 'admin/css/monthpicker.css' %}">
 
   <section id="forms" style='padding:0'>
@@ -91,6 +93,7 @@
 
             </div>
 </section>
+{% endcomment %}
 {% endblock content %}
 
 {% block scripts %}
@@ -104,4 +107,5 @@
     });
 });
 </script>
+
 {% endblock scripts %}
