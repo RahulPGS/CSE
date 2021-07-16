@@ -20,7 +20,6 @@ class Faculty(TimeStampable):
     work_exp = models.TextField(max_length=5000, blank=True, null=True)
     publication = models.TextField(max_length=1000, blank=True, null=True)
     projects  = models.TextField(max_length=5000, blank=True, null=True)
-    gender = models.CharField(choices=[('male', 'Male'), ('female', 'Female')], max_length=6)
     email = models.CharField(max_length=100)
     phone = models.CharField(max_length=10)
     sub_dealt = models.TextField(max_length=500)
@@ -139,3 +138,7 @@ class Message(TimeStampable):
     phn_no = models.CharField(max_length=10, blank=True, null=True)
     subject = models.CharField(max_length=50)
     message = models.TextField()
+
+class Company(models.Model):
+    name = models.CharField(max_length=100)
+    link = models.TextField(blank=True, null=True)

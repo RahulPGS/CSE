@@ -26,7 +26,14 @@
                       </div>
 
                     </div>
+
+                    <div class="form-group">
+                    <label class="form-label">Select the company from the below dropdown. Only enter the company name and link if the wanted company is not in the dropdown.</label>
+                      <select id="selectCompany" class="form-control">
+                      </select>
+                    </div>
                      <div class="form-row">
+                     <label class="form-label">Make sure that the company name and link are correct as these names will be used in the internship page to group the persons joined in the same company together.</label>
                       <div class="form-group col-md-6">
                         {% render_field form.company_name class="form-control"  placeholder="Company Name" %}
                       </div>
@@ -57,11 +64,11 @@
                  </div>
                   <div class="form-row">
                     <label class="form-label" for="customFile">Upload OfferLetter/ Supporting Documents</label>
-                    {% render_field form.call_letter class="form-control" id="customFile" %}                 
+                    {% render_field form.call_letter class="form-control" %}                 
                   </div>
                   <div class="form-row">
                     <label class="form-label" for="customFile">Upload latest photo</label>
-                    {% render_field form.image class="form-control" id="customFile" %}
+                    {% render_field form.image class="form-control" %}
                 </div>
                 </form>
                 </div>
@@ -121,12 +128,33 @@
                             {% endfor %}
                         </tbody>
                     </table>
+                <p>Showing page {{internships.number}} of {{ internships.paginator.num_pages}} </p>
                 </div>
+                <div class="w-90 position-relative container col-md-10">
+                    {% if internships.has_previous %}<a href="?page={{internships.previous_page_number}}" class="butt prev">Prev 10</a>{% endif %}
+                    {% if internships.has_next %}<a href="?page={{internships.next_page_number}}" class="butt next">Next 10</a>{% endif %}
+                </div>
+
 
 {% endblock %}
 {% block scripts %}
 <script>
   $(document).ready(function(){
+    var companies = JSON.parse("{{companies|escapejs}}")
+    console.log(companies['1']['name'])
+    $('#selectCompany').append($("<option></option>").text('Select Company').attr('disabled','disabled').attr('selected','selected'));
+    $.each(companies, function(key, value) {   
+     $('#selectCompany')
+         .append($("<option></option>")
+                    .attr("value", value['name'])
+                    .text(value['name'])); 
+    })
+    $('#selectCompany').change(function(e){
+      $("#id_company_name").val(e.target.value) 
+      $.each(companies, function(key, value){
+        if (value['name'] == e.target.value)$("#id_company_link").val(value['link'])
+      })
+    })
     $('#table').find('tr').not(':eq(0)').each(function(i){
         $(this).children('td:eq(0)').text(i+1).css('font-weight', 'bold');
     });

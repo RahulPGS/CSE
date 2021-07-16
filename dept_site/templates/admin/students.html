@@ -75,6 +75,11 @@
                             {% endfor %}
                         </tbody>
                     </table>
+                <p>Showing page {{batches.number}} of {{ batches.paginator.num_pages}} </p>
+                </div>
+                <div class="w-90 position-relative container col-md-10">
+                    {% if batches.has_previous %}<a href="?page={{batches.previous_page_number}}" class="butt prev">Prev 10</a>{% endif %}
+                    {% if batches.has_next %}<a href="?page={{batches.next_page_number}}" class="butt next">Next 10</a>{% endif %}
                 </div>
   <!-- /#wrapper -->
 

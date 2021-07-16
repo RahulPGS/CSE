@@ -40,6 +40,90 @@
   <link href="{% static 'img/logo.png' %}" rel="icon" />
   <link href="{% static 'img/logo.jpg' %}" rel="apple-touch-icon" />
 
+<style>
+
+.butt {
+	background: #FFF;
+	color: #191818;
+	font: bold 11px "Helvetica";
+	padding: 5px;
+	text-decoration: none;
+
+	-webkit-border-radius: 20px;
+	-moz-border-radius: 20px;
+	border-radius: 20px;
+
+	-webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, .25);
+	-moz-box-shadow: 0px 0px 10px rgba(0, 0, 0, .25);
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, .25);
+	
+	-webkit-transition: all 0.3s ease;
+	-moz-transition: all 0.3s ease;
+	-o-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+}
+
+.next:after {
+	background: gray;
+	color: #FFF;
+	content: ">";
+	display: inline-block;
+	font: bold 11px "Georgia";
+	height: 25px;
+	line-height: 25px;
+	margin-left: 10px;
+	text-align: center;
+	width: 25px;
+	
+	-webkit-border-radius: 20px;
+	-moz-border-radius: 20px;
+	border-radius: 20px;
+}
+
+.butt:hover {
+	-webkit-box-shadow: 0px 0px 15px rgba(0, 0, 0, 1);
+	-moz-box-shadow: 0px 0px 15px rgba(0, 0, 0, 1);
+	box-shadow: 0px 0px 15px rgba(0, 0, 0, 1);
+
+	-webkit-transition: all 0.3s ease;
+	-moz-transition: all 0.3s ease;
+	-o-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+	color: black;
+}
+
+.prev:before {
+	background: gray;
+	color: #FFF;
+	content: "<";
+	display: inline-block;
+	font: bold 11px "Georgia";
+	height: 25px;
+	line-height: 25px;
+	margin-right: 10px;
+	text-align: center;
+	width: 25px;
+	
+	-webkit-border-radius: 20px;
+	-moz-border-radius: 20px;
+	border-radius: 20px;
+}
+
+.next{
+  position:absolute;
+  right:10px;
+}
+
+.prev{
+  position:absolute;
+}
+
+.w-90{
+  width: 90% !important;
+  height:40px;
+}
+
+</style>
 
 </head>
 
@@ -166,7 +250,7 @@
                         <div class="submenu-box">
                           <ul class="list-unstyled m-0">
                             <li><a href="awards_honours">Awards and honours</a></li>
-                            <li><a href="events_talks">Events & Talks</a></li>
+                            <li><a href="events">Events & Talks</a></li>
                             <li><a href="gallery"> Gallery </a></li>
 
 

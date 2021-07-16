@@ -83,6 +83,11 @@
                             {% endfor %}
                         </tbody>
                     </table>
+                 <p>Showing page {{events.number}} of {{ events.paginator.num_pages}} </p>
+                </div>
+                <div class="w-90 position-relative container col-md-10">
+                    {% if events.has_previous %}<a href="?page={{events.previous_page_number}}" class="butt prev">Prev 10</a>{% endif %}
+                    {% if events.has_next %}<a href="?page={{events.next_page_number}}" class="butt next">Next 10</a>{% endif %}
                 </div>
     <!-- /#page-content-wrapper --> 
   <!-- /#wrapper -->

@@ -48,7 +48,7 @@
           <!-- /.container-fluid -->
 
        </div>
-                <div class="container table-responsive col-md-10">
+                <div class="container table-responsive col-md-10  mb-5">
                     <h4 class="pb-4">News Description</h4>
                     <table class="table table-bordered table-hover modal_all" style="text-align: center;">
                         <thead class="thead-dark">
@@ -94,6 +94,11 @@
                            {% endfor %} 
                         </tbody>
                     </table>
+                    <p>Showing page {{news.number}} of {{ news.paginator.num_pages}} </p>
+                </div>
+                <div class="w-90 position-relative container col-md-10">
+                    {% if news.has_previous %}<a href="?page={{news.previous_page_number}}" class="butt prev">Prev 10</a>{% endif %}
+                    {% if news.has_next %}<a href="?page={{news.next_page_number}}" class="butt next">Next 10</a>{% endif %}
                 </div>
 
 

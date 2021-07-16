@@ -89,6 +89,11 @@
 
                         </tbody>
                     </table>
+                 <p>Showing page {{collaborations.number}} of {{ collaborations.paginator.num_pages}} </p>
+                </div>
+                <div class="w-90 position-relative container col-md-10">
+                    {% if collaborations.has_previous %}<a href="?page={{collaborations.previous_page_number}}" class="butt prev">Prev 10</a>{% endif %}
+                    {% if collaborations.has_next %}<a href="?page={{collaborations.next_page_number}}" class="butt next">Next 10</a>{% endif %}
                 </div>
 
 

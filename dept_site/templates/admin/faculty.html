@@ -144,12 +144,16 @@
                             {% endfor %}
                         </tbody>
                     </table>
+                 <p>Showing page {{faculty.number}} of {{ faculty.paginator.num_pages}} </p>
+                </div>
+                <div class="w-90 position-relative container col-md-10">
+                    {% if faculty.has_previous %}<a href="?page={{faculty.previous_page_number}}" class="butt prev">Prev 10</a>{% endif %}
+                    {% if faculty.has_next %}<a href="?page={{faculty.next_page_number}}" class="butt next">Next 10</a>{% endif %}
                 </div>
 {% endblock %}
 {% block scripts %}
 <script>
     $('#id_edu_level').children('option:selected').text('Select Education level').attr('disabled','disabled')
-    $('#id_gender').children('option:selected').text('Select gender').attr('disabled','disabled')
     $('textarea').css({height:'62px'})
 </script>
 {% endblock scripts %}

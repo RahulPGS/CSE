@@ -1,12 +1,16 @@
 from django.shortcuts import render, redirect
 import django
-from .models import Faculty, Staff, Publication, Gallery, News, Slide, Award, Timetablenacedemics, Events, Batch, Placement, Internship, Collaboration, Message, File
+from .models import Faculty, Staff, Publication, Gallery, News, Slide, Award, Timetablenacedemics, Events, Batch, Placement, Internship, Collaboration, Message, File, Company
 from .forms import Faculty_form, Staff_form, Event_form, A_cal_form, publication_form, gallery_form, news_form, slide_form, award_form, batch_form, placement_form, internship_form, collaboration_form, message_form
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from json import dumps
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 # Create your views here.
+
+NUM_OBJECTS_PER_PAGE = 10
 
 
 def main(res):
@@ -39,7 +43,16 @@ def faculty_form(res, id=None):
             return redirect('faculty')
         print(form.errors)
         return render(res, '/admin/faculty.html', {'form': form})
-    return render(res, 'admin/faculty.html', {'form': Faculty_form(instance=Faculty.objects.get(id=id)) if id else Faculty_form(), 'faculty': Faculty.objects.all().order_by('-id'), 'id': id if id else None})
+    objects = Faculty.objects.all().order_by('-id')
+    page = res.GET.get('page', 1)
+    paginator = Paginator(objects, NUM_OBJECTS_PER_PAGE)
+    try:
+        objects = paginator.page(page)
+    except PageNotAnInteger:
+        objects = paginator.page(1)
+    except EmptyPage:
+        objects = paginator.page(paginator.num_pages)
+    return render(res, 'admin/faculty.html', {'form': Faculty_form(instance=Faculty.objects.get(id=id)) if id else Faculty_form(), 'faculty': objects, 'id': id if id else None})
 
 @login_required
 def admin_events(res, id=None):
@@ -54,7 +67,16 @@ def admin_events(res, id=None):
             return redirect('/admin/events')
         print(form.errors)
         return render(res, 'admin/events.html', {'form': form})
-    return render(res, 'admin/events.html', {'form': Event_form(instance=Events.objects.get(id=id)) if id else Event_form(), 'events': Events.objects.all().order_by('-id'), 'id': id if id else None})
+    objects = Events.objects.all().order_by('-id')
+    page = res.GET.get('page', 1)
+    paginator = Paginator(objects, NUM_OBJECTS_PER_PAGE)
+    try:
+        objects = paginator.page(page)
+    except PageNotAnInteger:
+        objects = paginator.page(1)
+    except EmptyPage:
+        objects = paginator.page(paginator.num_pages)
+    return render(res, 'admin/events.html', {'form': Event_form(instance=Events.objects.get(id=id)) if id else Event_form(), 'events': objects, 'id': id if id else None})
 
 
 @login_required
@@ -72,7 +94,16 @@ def admin_staff(res, id=None):
             return redirect('/admin/staff')
         print(form.errors)
         return render(res, 'admin/staff.html', {'form': form})
-    return render(res, 'admin/staff.html', {'form': Staff_form(instance=Staff.objects.get(id=id)) if id else Staff_form(), 'staff': Staff.objects.all().order_by('-id'), 'id': id if id else None})
+    objects = Staff.objects.all().order_by('-id')
+    page = res.GET.get('page', 1)
+    paginator = Paginator(objects, NUM_OBJECTS_PER_PAGE)
+    try:
+        objects = paginator.page(page)
+    except PageNotAnInteger:
+        objects = paginator.page(1)
+    except EmptyPage:
+        objects = paginator.page(paginator.num_pages)
+    return render(res, 'admin/staff.html', {'form': Staff_form(instance=Staff.objects.get(id=id)) if id else Staff_form(), 'staff': objects, 'id': id if id else None})
 
 
 @login_required
@@ -183,9 +214,17 @@ def admin_publication(res, id=None):
             o.save()
             messages.success(res, "Successfully submitted")
             return redirect('/admin/publications')
-        print(form.errors)
         return render(res, 'admin/publication.html', {'form': form})
-    return render(res, 'admin/publication.html', {'form': publication_form(instance=Publication.objects.get(id=id)) if id else publication_form(), 'objects': Publication.objects.all().order_by('-id'), 'id': id if id else None})
+    objects = Publication.objects.all().order_by('-id')
+    page = res.GET.get('page', 1)
+    paginator = Paginator(objects, NUM_OBJECTS_PER_PAGE)
+    try:
+        objects = paginator.page(page)
+    except PageNotAnInteger:
+        objects = paginator.page(1)
+    except EmptyPage:
+        objects = paginator.page(paginator.num_pages)
+    return render(res, 'admin/publication.html', {'form': publication_form(instance=Publication.objects.get(id=id)) if id else publication_form(), 'objects': objects, 'id': id if id else None})
 
 @login_required
 def admin_awards(res, id=None):
@@ -202,7 +241,16 @@ def admin_awards(res, id=None):
             return redirect('/admin/awards_honours')
         print(form.errors)
         return render(res, 'admin/awards.html', {'form': form})
-    return render(res, 'admin/awards.html', {'form': award_form(instance=Award.objects.get(id=id)) if id else award_form(), 'awards': Award.objects.all().order_by('-id'), 'id': id if id else None})
+    objects = Award.objects.all().order_by('-id')
+    page = res.GET.get('page', 1)
+    paginator = Paginator(objects, NUM_OBJECTS_PER_PAGE)
+    try:
+        objects = paginator.page(page)
+    except PageNotAnInteger:
+        objects = paginator.page(1)
+    except EmptyPage:
+        objects = paginator.page(paginator.num_pages)
+    return render(res, 'admin/awards.html', {'form': award_form(instance=Award.objects.get(id=id)) if id else award_form(), 'awards': objects, 'id': id if id else None})
 
 
 @login_required
@@ -250,7 +298,16 @@ def admin_news(res, id=None):
         return render(res, 'admin/news.html', {'form': form})
     if id:
         files = File.objects.filter(f_object=News.objects.get(id=id))
-    return render(res, 'admin/news.html', {'form': news_form(instance=News.objects.get(id=id)) if id else news_form(), 'news': News.objects.all().order_by('-id'), 'id': id if id else None, 'files': files if id else None})
+    objects = News.objects.all().order_by('-id')
+    page = res.GET.get('page', 1)
+    paginator = Paginator(objects, NUM_OBJECTS_PER_PAGE)
+    try:
+        objects = paginator.page(page)
+    except PageNotAnInteger:
+        objects = paginator.page(1)
+    except EmptyPage:
+        objects = paginator.page(paginator.num_pages)
+    return render(res, 'admin/news.html', {'form': news_form(instance=News.objects.get(id=id)) if id else news_form(), 'news': objects, 'id': id if id else None, 'files': files if id else None})
 
 @login_required
 def admin_slider(res, id=None):
@@ -281,7 +338,16 @@ def admin_students(res, id=None):
             return redirect('/admin/students')
         print(form.errors)
         return render(res, 'admin/students.html', {'form': form})
-    return render(res, 'admin/students.html', {'form': batch_form(instance=Batch.objects.get(id=id)) if id else batch_form(), 'batches': Batch.objects.all().order_by('-id'), 'id': id if id else None})
+    objects = Batch.objects.all().order_by('-id')
+    page = res.GET.get('page', 1)
+    paginator = Paginator(objects, NUM_OBJECTS_PER_PAGE)
+    try:
+        objects = paginator.page(page)
+    except PageNotAnInteger:
+        objects = paginator.page(1)
+    except EmptyPage:
+        objects = paginator.page(paginator.num_pages)
+    return render(res, 'admin/students.html', {'form': batch_form(instance=Batch.objects.get(id=id)) if id else batch_form(), 'batches': objects, 'id': id if id else None})
 
 
 @login_required
@@ -299,12 +365,25 @@ def admin_placements(res, id=None):
             return redirect('/admin/placements')
         print(form.errors)
         return render(res, 'admin/placements.html', {'form': form})
-    return render(res, 'admin/placements.html', {'form': placement_form(instance=Placement.objects.get(id=id)) if id else placement_form(), 'placements': Placement.objects.all().order_by('-id'), 'id': id if id else None})
+    objects = Placement.objects.all().order_by('-id')
+    page = res.GET.get('page', 1)
+    paginator = Paginator(objects, NUM_OBJECTS_PER_PAGE)
+    try:
+        objects = paginator.page(page)
+    except PageNotAnInteger:
+        objects = paginator.page(1)
+    except EmptyPage:
+        objects = paginator.page(paginator.num_pages)
+    return render(res, 'admin/placements.html', {'form': placement_form(instance=Placement.objects.get(id=id)) if id else placement_form(), 'placements': objects, 'id': id if id else None})
 
 
 
 @login_required
 def admin_internships(res, id=None):
+    companies = {}
+    for i,company in enumerate(Company.objects.all(), start=1):
+        companies[f'{i}'] = {'name': company.name, 'link':company.link}
+    print(dumps(companies))
     if res.method == 'POST':
         if id:
             form = internship_form(res.POST, instance=Internship.objects.get(id=id))
@@ -318,7 +397,16 @@ def admin_internships(res, id=None):
             return redirect('/admin/internships')
         print(form.errors)
         return render(res, 'admin/internships.html', {'form': form})
-    return render(res, 'admin/internships.html', {'form': internship_form(instance=Internship.objects.get(id=id)) if id else internship_form(), 'internships': Internship.objects.all().order_by('-id'), 'id': id if id else None})
+    objects = Internship.objects.all().order_by('-id')
+    page = res.GET.get('page', 1)
+    paginator = Paginator(objects, NUM_OBJECTS_PER_PAGE)
+    try:
+        objects = paginator.page(page)
+    except PageNotAnInteger:
+        objects = paginator.page(1)
+    except EmptyPage:
+        objects = paginator.page(paginator.num_pages)
+    return render(res, 'admin/internships.html', {'form': internship_form(instance=Internship.objects.get(id=id)) if id else internship_form(), 'internships': objects, 'id': id if id else None, 'companies':dumps(companies)})
 
 @login_required
 def admin_collaborations(res, id=None):
@@ -335,7 +423,16 @@ def admin_collaborations(res, id=None):
             return redirect('/admin/collaborations')
         print(form.errors)
         return render(res, 'admin/collaborations.html', {'form': form})
-    return render(res, 'admin/collaborations.html', {'form': collaboration_form(instance=Collaboration.objects.get(id=id)) if id else collaboration_form(), 'collaborations': Collaboration.objects.all().order_by('-id'), 'id': id if id else None})
+    objects = Collaboration.objects.all().order_by('-id')
+    page = res.GET.get('page', 1)
+    paginator = Paginator(objects, NUM_OBJECTS_PER_PAGE)
+    try:
+        objects = paginator.page(page)
+    except PageNotAnInteger:
+        objects = paginator.page(1)
+    except EmptyPage:
+        objects = paginator.page(paginator.num_pages)
+    return render(res, 'admin/collaborations.html', {'form': collaboration_form(instance=Collaboration.objects.get(id=id)) if id else collaboration_form(), 'collaborations': objects, 'id': id if id else None})
 
 
 

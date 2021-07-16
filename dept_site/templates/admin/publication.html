@@ -101,6 +101,11 @@
                           {% endfor %}
                         </tbody>
                     </table>
+                    <p>Showing page {{objects.number}} of {{ objects.paginator.num_pages}} </p>
+                </div>
+                <div class="w-90 position-relative container col-md-10">
+                    {% if objects.has_previous %}<a href="?page={{objects.previous_page_number}}" class="butt prev">Prev 10</a>{% endif %}
+                    {% if objects.has_next %}<a href="?page={{objects.next_page_number}}" class="butt next">Next 10</a>{% endif %}
                 </div>
 
 
