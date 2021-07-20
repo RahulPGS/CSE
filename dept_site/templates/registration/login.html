@@ -2,6 +2,7 @@
 {% load static %}
 {% load widget_tweaks %}
 {% block content %}
+{% load socialaccount %}
 
   <main class="d-flex align-items-center min-vh-100 py-3 py-md-0">
     <div class="container">
@@ -14,6 +15,7 @@
             <div class="card-body">
           
               <p class="login-card-description">ADMIN LOGIN</p>
+              <a href="{% provider_login_url 'google' %}">Login With Google</a>
               <form method='post'>
               {% csrf_token %}
                   <div class="form-group">

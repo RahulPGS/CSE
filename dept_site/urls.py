@@ -39,6 +39,7 @@ urlpatterns = [
 
     #admin
     path('admin/dashboard', views.admin_dashboard, name='admin_dashboard'),
+    path('admin/mail', views.send_mail, name='mail'),
 
     path('admin/faculty', views.faculty_form, name='admin_faculty'),
     path('admin/faculty/<int:id>', views.faculty_form, name='admin_faculty'),

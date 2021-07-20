@@ -21,8 +21,9 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
     path('django-admin/', admin.site.urls),
     path('', include('dept_site.urls')),
-    url(r'((\badmin\b)|(\blogin\b))',
+    path('login/',
         auth_views.LoginView.as_view(redirect_authenticated_user=True),
         name='login'),
     path('', include('django.contrib.auth.urls')),
+    path('accounts/', include('allauth.urls')),
 ]

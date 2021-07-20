@@ -6,12 +6,21 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from json import dumps
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core import mail
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 
 
 # Create your views here.
 
 NUM_OBJECTS_PER_PAGE = 10
 
+def only_allow_admin(func):
+    def inner(*args, **kwargs):
+        if args[0].user.username == 'admin':
+            return func(*args, **kwargs)
+        return redirect('/')
+    return inner
 
 def main(res):
     form = message_form()
@@ -29,6 +38,7 @@ def main(res):
 
 
 @login_required
+@only_allow_admin
 def faculty_form(res, id=None):
     if res.method == 'POST':
         if id:
@@ -55,6 +65,7 @@ def faculty_form(res, id=None):
     return render(res, 'admin/faculty.html', {'form': Faculty_form(instance=Faculty.objects.get(id=id)) if id else Faculty_form(), 'faculty': objects, 'id': id if id else None})
 
 @login_required
+@only_allow_admin
 def admin_events(res, id=None):
     if res.method == 'POST':
         if id:
@@ -80,6 +91,7 @@ def admin_events(res, id=None):
 
 
 @login_required
+@only_allow_admin
 def admin_staff(res, id=None):
     if res.method == 'POST':
         if id:
@@ -107,6 +119,7 @@ def admin_staff(res, id=None):
 
 
 @login_required
+@only_allow_admin
 def admin_a_cal(res):
     if res.method == 'POST':
         form = A_cal_form(res.POST, instance=Timetablenacedemics.objects.get(is_time=False))
@@ -121,6 +134,7 @@ def admin_a_cal(res):
     return render(res, 'admin/academic.html', {'form': A_cal_form(instance=Timetablenacedemics.objects.get(is_time=False))})
 
 @login_required
+@only_allow_admin
 def admin_tt(res):
     if res.method == 'POST':
         form = A_cal_form(res.POST, instance=Timetablenacedemics.objects.get(is_time=True))
@@ -202,6 +216,7 @@ def new_internship_form(res):
     return render(res, 'internship_form.html', {'form': internship_form()})
 
 @login_required
+@only_allow_admin
 def admin_publication(res, id=None):
     if res.method == 'POST':
         if id:
@@ -227,6 +242,7 @@ def admin_publication(res, id=None):
     return render(res, 'admin/publication.html', {'form': publication_form(instance=Publication.objects.get(id=id)) if id else publication_form(), 'objects': objects, 'id': id if id else None})
 
 @login_required
+@only_allow_admin
 def admin_awards(res, id=None):
     if res.method == 'POST':
         if id:
@@ -254,6 +270,7 @@ def admin_awards(res, id=None):
 
 
 @login_required
+@only_allow_admin
 def admin_gallery(res):
     if res.method == 'POST':
         form = gallery_form(res.POST, res.FILES)
@@ -274,6 +291,7 @@ def admin_gallery(res):
     return render(res, 'admin/gallery.html', {'form': gallery_form(), 'gallery': Gallery.objects.all().order_by('-id')})
 
 @login_required
+@only_allow_admin
 def admin_news(res, id=None):
     if res.method == 'POST':
         if id:
@@ -310,6 +328,7 @@ def admin_news(res, id=None):
     return render(res, 'admin/news.html', {'form': news_form(instance=News.objects.get(id=id)) if id else news_form(), 'news': objects, 'id': id if id else None, 'files': files if id else None})
 
 @login_required
+@only_allow_admin
 def admin_slider(res, id=None):
     if res.method == 'POST':
         if id:
@@ -326,6 +345,7 @@ def admin_slider(res, id=None):
 
 
 @login_required
+@only_allow_admin
 def admin_students(res, id=None):
     if res.method == 'POST':
         if id:
@@ -351,6 +371,7 @@ def admin_students(res, id=None):
 
 
 @login_required
+@only_allow_admin
 def admin_placements(res, id=None):
     if res.method == 'POST':
         if id:
@@ -379,11 +400,12 @@ def admin_placements(res, id=None):
 
 
 @login_required
+@only_allow_admin
 def admin_internships(res, id=None):
+    print(res.user)
     companies = {}
     for i,company in enumerate(Company.objects.all(), start=1):
         companies[f'{i}'] = {'name': company.name, 'link':company.link}
-    print(dumps(companies))
     if res.method == 'POST':
         if id:
             form = internship_form(res.POST, instance=Internship.objects.get(id=id))
@@ -409,6 +431,7 @@ def admin_internships(res, id=None):
     return render(res, 'admin/internships.html', {'form': internship_form(instance=Internship.objects.get(id=id)) if id else internship_form(), 'internships': objects, 'id': id if id else None, 'companies':dumps(companies)})
 
 @login_required
+@only_allow_admin
 def admin_collaborations(res, id=None):
     if res.method == 'POST':
         if id:
@@ -487,6 +510,7 @@ def admin_dashboard(res):
     return render(res, 'admin/dash_new.html', {'p_pendings': Publication.objects.filter(approved=False), 'a_pendings': Award.objects.filter(approved=False), 'f_pendings': Faculty.objects.filter(approved=False), 's_pendings': Staff.objects.filter(approved=False), 'pl_pendings' : Placement.objects.filter(approved=False), 'in_pendings' : Internship.objects.filter(approved=False)})
 
 @login_required
+@only_allow_admin
 def admin_accept(res, id, model):
     if model == 'award':
         o = Award.objects.get(id=id)
@@ -506,6 +530,7 @@ def admin_accept(res, id, model):
     return redirect('/admin/dashboard')
 
 @login_required
+@only_allow_admin
 def admin_delete(res, id, model):
     if model == 'award':
         o = Award.objects.get(id=id)
@@ -536,4 +561,19 @@ def admin_delete(res, id, model):
     o.delete()
     messages.warning(res, f"The {model.title()} object is deleted")
     return redirect(res.META['HTTP_REFERER'])
+
+
+@login_required
+@only_allow_admin
+def send_mail(res):
+    if res.method == 'POST':
+        subject = res.POST.get("subject")
+        body = res.POST.get('body')
+        html_message = render_to_string('admin/basic_mail_template.html', {'subject': subject, 'body': body})
+        plain_message = strip_tags(html_message)
+        from_mail = 'cseupdates@rguktsklm.ac.in'
+        to = 's160142@rguktsklm.ac.in'
+
+        mail.send_mail(subject, plain_message, from_mail, [to], html_message=html_message)
+    return render(res, 'admin/mail.html', {})
 
